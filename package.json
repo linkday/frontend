@@ -36,5 +36,9 @@
 		"typescript": "^5.0.3",
 		"vite": "^4.2.1"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@zodios/core": "^10.9.0",
+		"zod": "^3.21.4"
+	}
 }
