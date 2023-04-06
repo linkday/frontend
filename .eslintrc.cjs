@@ -36,5 +36,6 @@ module.exports = {
 		indent: ["error", "tab"],
 		"linebreak-style": ["error", "unix"],
 		quotes: ["error", "double"],
+		"@typescript-eslint/ban-ts-comment": "off",
 	},
 };

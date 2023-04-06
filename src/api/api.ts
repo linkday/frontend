@@ -579,7 +579,9 @@ const endpoints = makeApi([
 	},
 ]);
 
-export const api = new Zodios(endpoints);
+export type types = {
+	[Key in keyof typeof schemas]: z.infer<(typeof schemas)[Key]>;
+};
 
 export function createApiClient(baseUrl: string, options?: ZodiosOptions) {
 	return new Zodios(baseUrl, endpoints, options);
