@@ -10,7 +10,7 @@
 			<div class="font-[Spectrul] font-bold text-2xl">LINKDAY</div>
 		</div>
 		<div
-			class="duration-500 md:static absolute bg-white md:min-h-fit min-h-[20vh] left-0 top-[-100%] md:w-auto w-full flex items-center"
+			class="duration-500 md:static absolute bg-white md:min-h-fit min-h-[20vh] left-0 top-[-100%] md:w-auto w-full flex items-center md:shadow-none shadow-lg"
 			class:top-[5rem]={isMenuOpen}
 		>
 			<ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 w-[92%] mx-auto z-0">
@@ -59,3 +59,21 @@
 </header>
 
 <slot />
+
+<style>
+	:global(body::-webkit-scrollbar) {
+		width: 0.5em;
+	}
+
+	:global(body::-webkit-scrollbar-track) {
+		background: #eee;
+	}
+
+	:global(body::-webkit-scrollbar-thumb) {
+		background: #888;
+	}
+
+	:global(body::-webkit-scrollbar-thumb:hover) {
+		background: #444;
+	}
+</style>
