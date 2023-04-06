@@ -39,6 +39,7 @@
 	"type": "module",
 	"dependencies": {
 		"@zodios/core": "^10.9.0",
+		"svelte-headlessui": "^0.0.15",
 		"zod": "^3.21.4"
 	}
 }

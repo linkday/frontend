@@ -4,9 +4,9 @@
 	let isMenuOpen = false;
 </script>
 
-<header class="z-10 relative bg-white h-20 flex justify-center items-center">
+<header class="z-20 relative bg-white h-20 flex justify-center items-center">
 	<nav class="flex justify-between items-center w-[92%] mx-auto sticky">
-		<div class="z-20 bg-white h-20 flex justify-between items-center">
+		<div class="z-30 bg-white h-20 flex justify-between items-center">
 			<div class="font-[Spectrul] font-bold text-2xl">LINKDAY</div>
 		</div>
 		<div

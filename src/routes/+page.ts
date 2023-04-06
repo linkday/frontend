@@ -6,6 +6,11 @@ export const load = (async () => {
 	// 		userId: "1",
 	// 	},
 	// });
+	// const userGroups = await api.getUserGroups({
+	// 	params: {
+	// 		userId: "1",
+	// 	},
+	// });
 
 	return {
 		tagsBookmarks: {
@@ -99,6 +104,46 @@ export const load = (async () => {
 					id: 7,
 					name: "tag8",
 					bookmarks: [],
+				},
+			],
+		},
+		userGroups: {
+			data: [
+				{
+					id: 0,
+					name: "Group 1",
+					users: [
+						{
+							id: 0,
+							username: "string",
+							email: "apiteam@swagger.io",
+							avatar_url: "string",
+							last_logged_in_at: new Date("2015-07-20T22:49:04.000Z"),
+							created_at: new Date("2015-07-20T22:49:04.000Z"),
+							updated_at: new Date("2015-07-20T22:49:04.000Z"),
+						},
+					],
+					created_at: new Date("2015-07-20T22:49:04.000Z"),
+					updated_at: new Date("2015-07-20T22:49:04.000Z"),
+					deleted_at: new Date("2015-07-20T22:49:04.000Z"),
+				},
+				{
+					id: 1,
+					name: "Group 2",
+					users: [
+						{
+							id: 1,
+							username: "string",
+							email: "apiteam@swagger.io",
+							avatar_url: "string",
+							last_logged_in_at: new Date("2015-07-20T22:49:04.000Z"),
+							created_at: new Date("2015-07-20T22:49:04.000Z"),
+							updated_at: new Date("2015-07-20T22:49:04.000Z"),
+						},
+					],
+					created_at: new Date("2015-07-20T22:49:04.000Z"),
+					updated_at: new Date("2015-07-20T22:49:04.000Z"),
+					deleted_at: new Date("2015-07-20T22:49:04.000Z"),
 				},
 			],
 		},
