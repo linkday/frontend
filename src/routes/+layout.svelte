@@ -5,13 +5,14 @@
 </script>
 
 <header class="bg-white h-20 flex justify-center items-center">
-	<nav class="flex justify-between items-center w-[92%] mx-auto">
+	<nav class="flex justify-between items-center w-[92%] mx-auto sticky">
 		<div class="z-10 bg-white h-20 flex justify-between items-center">
 			<div class="font-[Spectrul] font-bold text-2xl">LINKDAY</div>
 		</div>
 		<div
-			class="duration-500 md:static absolute bg-white md:min-h-fit min-h-[20vh] left-0 top-[-100%] md:w-auto w-full flex items-center md:shadow-none shadow-lg"
+			class="duration-500 md:static fixed bg-white md:min-h-fit min-h-[20vh] left-0 md:w-auto w-full flex items-center md:shadow-none shadow-lg"
 			class:top-[5rem]={isMenuOpen}
+			class:top-[-50rem]={!isMenuOpen}
 		>
 			<ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 w-[92%] mx-auto z-0">
 				<li>
