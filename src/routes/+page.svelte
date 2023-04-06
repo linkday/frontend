@@ -18,7 +18,7 @@
 </script>
 
 <div class="w-[92%] lg:w-1/2 mx-auto my-2 flex flex-col h-[calc(100vh-6rem)]">
-	<div class=" bg-gray-100 flex flex-row rounded-lg px-6 mb-4 gap-6 items-center">
+	<div class="bg-gray-100 flex flex-row rounded-lg px-6 mb-4 gap-6 items-center">
 		<button
 			class="w-10 h-10 relative focus:outline-none"
 			on:click={() => {
@@ -35,10 +35,10 @@
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
 			</svg>
 		</button>
-		<div class=" flex flex-row gap-4 overflow-hidden bg-gray-200 p-4" bind:this={tags}>
+		<div class="flex flex-row gap-4 overflow-hidden bg-gray-200 p-4" bind:this={tags}>
 			{#each data.tagsBookmarks.data as tag (tag.id)}
 				<div
-					class="text-lg font-[500] italic w-min px-4 py-2 shadow-sm rounded-lg whitespace-nowrap cursor-pointer"
+					class="duration-150 ease-in-out text-lg font-[500] italic w-min px-4 py-2 shadow-sm rounded-lg whitespace-nowrap cursor-pointer"
 					class:bg-[#a6c1ee]={selectedTagIds.includes(tag.id)}
 					class:bg-white={!selectedTagIds.includes(tag.id)}
 					class:text-white={selectedTagIds.includes(tag.id)}
