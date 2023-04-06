@@ -70,6 +70,36 @@ export const load = (async () => {
 						},
 					],
 				},
+				{
+					id: 2,
+					name: "tag3",
+					bookmarks: [],
+				},
+				{
+					id: 3,
+					name: "tag4",
+					bookmarks: [],
+				},
+				{
+					id: 4,
+					name: "tag5",
+					bookmarks: [],
+				},
+				{
+					id: 5,
+					name: "tag6",
+					bookmarks: [],
+				},
+				{
+					id: 6,
+					name: "tag7",
+					bookmarks: [],
+				},
+				{
+					id: 7,
+					name: "tag8",
+					bookmarks: [],
+				},
 			],
 		},
 	};
