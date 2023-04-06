@@ -14,18 +14,24 @@
 			class:top-[5rem]={isMenuOpen}
 			class:top-[-50rem]={!isMenuOpen}
 		>
-			<ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 w-[92%] mx-auto z-0">
+			<ul
+				class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 w-[92%] mx-auto z-0 md:mr-8"
+			>
 				<li>
-					<a class="font-[500] hover:text-gray-500" href="/">BOOKMARKS</a>
+					<a class="duration-200 font-bold text-sm text-gray-500 hover:text-[#87acec]" href="/"
+						>BOOKMARKS</a
+					>
 				</li>
 				<li>
-					<a class="font-[500] hover:text-gray-500" href="/">FEEDS</a>
+					<a class="duration-200 font-bold text-sm text-gray-500 hover:text-[#87acec]" href="/"
+						>FEEDS</a
+					>
 				</li>
 			</ul>
 		</div>
 		<div class="flex items-center gap-6 z-10">
 			<button
-				class="font-[500] bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec] whitespace-nowrap"
+				class="font-bold text-sm bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec] whitespace-nowrap"
 			>
 				SIGN IN
 			</button>

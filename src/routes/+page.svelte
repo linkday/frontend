@@ -17,7 +17,7 @@
 	let tags: HTMLDivElement;
 </script>
 
-<div class="w-[92%] lg:w-1/2 mx-auto my-2">
+<div class="w-[92%] lg:w-1/2 mx-auto my-2 flex flex-col h-[calc(100vh-6rem)]">
 	<div class=" bg-gray-100 flex flex-row rounded-lg px-6 mb-4 gap-6 items-center">
 		<button
 			class="w-10 h-10 relative focus:outline-none"
@@ -80,9 +80,15 @@
 			</svg>
 		</button>
 	</div>
-	<div class=" bg-gray-100 flex flex-col rounded-lg p-6 mb-6 gap-6">
+	<div class=" bg-gray-100 flex flex-col rounded-lg p-6 mb-4 gap-6 grow">
 		{#each currentBookmarks as bookmark}
 			<Bookmark {bookmark} />
+		{:else}
+			<div
+				class="h-full text-lg font-[500] italic text-center text-gray-400 flex justify-center items-center"
+			>
+				No bookmarks found in selected tags.
+			</div>
 		{/each}
 	</div>
 </div>
