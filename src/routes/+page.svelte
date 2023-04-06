@@ -15,7 +15,7 @@
 		.flat();
 </script>
 
-<div class="w-[92%] md:w-1/2 mx-auto my-2">
+<div class="w-[92%] lg:w-1/2 mx-auto my-2">
 	<div class=" bg-gray-100 flex flex-col rounded-lg p-6 mb-6 gap-6">
 		<div class=" flex flex-row gap-4">
 			{#each data.tagsBookmarks.data as tag (tag.id)}
