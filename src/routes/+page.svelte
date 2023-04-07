@@ -172,7 +172,7 @@
 		class:hidden={!isTagSettingOpen}
 	>
 		<div class="relative">
-			<div class="font-bold text-gray-500 relative mb-4 left-8">TAGS</div>
+			<div class="font-bold text-gray-500 relative mb-4 left-10">TAGS</div>
 			{#each data.tagsBookmarks.data as tag (tag.id)}
 				<div class="flex flex-row mb-2 lg:mb-1">
 					<button class="absolute" on:click={() => openTagOperationDialog(tag)}>
@@ -186,7 +186,7 @@
 								fill-rule="evenodd"
 								clip-rule="evenodd"
 								d="M13.75 5C13.75 5.9665 12.9665 6.75 12 6.75C11.0335 6.75 10.25 5.9665 10.25 5C10.25 4.0335 11.0335 3.25 12 3.25C12.9665 3.25 13.75 4.0335 13.75 5ZM13.75 19C13.75 19.9665 12.9665 20.75 12 20.75C11.0335 20.75 10.25 19.9665 10.25 19C10.25 18.0335 11.0335 17.25 12 17.25C12.9665 17.25 13.75 18.0335 13.75 19ZM12 13.75C12.9665 13.75 13.75 12.9665 13.75 12C13.75 11.0335 12.9665 10.25 12 10.25C11.0335 10.25 10.25 11.0335 10.25 12C10.25 12.9665 11.0335 13.75 12 13.75Z"
-								fill="#000000"
+								fill="#888"
 							/>
 						</svg>
 						<svg
@@ -199,22 +199,22 @@
 								fill-rule="evenodd"
 								clip-rule="evenodd"
 								d="M13.75 5C13.75 5.9665 12.9665 6.75 12 6.75C11.0335 6.75 10.25 5.9665 10.25 5C10.25 4.0335 11.0335 3.25 12 3.25C12.9665 3.25 13.75 4.0335 13.75 5ZM13.75 19C13.75 19.9665 12.9665 20.75 12 20.75C11.0335 20.75 10.25 19.9665 10.25 19C10.25 18.0335 11.0335 17.25 12 17.25C12.9665 17.25 13.75 18.0335 13.75 19ZM12 13.75C12.9665 13.75 13.75 12.9665 13.75 12C13.75 11.0335 12.9665 10.25 12 10.25C11.0335 10.25 10.25 11.0335 10.25 12C10.25 12.9665 11.0335 13.75 12 13.75Z"
-								fill="#000000"
+								fill="#888"
 							/>
 						</svg>
 					</button>
-					<label class="flex items-center gap-4 mb-2 relative left-8">
+					<label class="flex items-center gap-6 mb-2 relative left-10">
 						<input
 							type="checkbox"
 							bind:group={selectedTagIds}
 							value={tag.id}
 							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-[#87acec]"
 						/>
-						<span class="text-gray-700 italic truncate w-48"># {tag.name}</span>
+						<span class="text-gray-800 italic truncate xl:w-48 w-36 !lg:w-56"># {tag.name}</span>
 					</label>
 				</div>
 			{/each}
-			<button class="flex items-center gap-4 mt-2 mb-2 relative left-8" on:click={createNewTag}>
+			<button class="flex items-center gap-6 mt-2 mb-2 relative left-10" on:click={createNewTag}>
 				<div class="text-gray-400 w-5 h-5 text-3xl flex justify-center items-center">+</div>
 				<div class="text-gray-400">Add Tags</div>
 			</button>
