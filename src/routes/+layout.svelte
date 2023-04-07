@@ -19,12 +19,12 @@
 				class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 w-[92%] mx-auto z-0 md:mr-8"
 			>
 				<li>
-					<a class="duration-200 font-bold text-sm text-gray-500 hover:text-[#87acec]" href="/"
+					<a class="duration-200 font-bold text-sm text-gray-500 hover:text-[#a353ff]" href="/"
 						>BOOKMARKS</a
 					>
 				</li>
 				<li>
-					<a class="duration-200 font-bold text-sm text-gray-500 hover:text-[#87acec]" href="/"
+					<a class="duration-200 font-bold text-sm text-gray-500 hover:text-[#a353ff]" href="/"
 						>FEEDS</a
 					>
 				</li>
@@ -32,7 +32,7 @@
 		</div>
 		<div class="flex items-center gap-6 z-10">
 			<button
-				class="font-bold text-sm bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec] whitespace-nowrap"
+				class="font-bold text-sm bg-[#a353ff] text-white px-5 py-2 rounded-full hover:bg-[#893be1] whitespace-nowrap"
 			>
 				SIGN IN
 			</button>

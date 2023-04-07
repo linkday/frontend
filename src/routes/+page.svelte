@@ -121,7 +121,7 @@
 									{#if operationMode === "create"}
 										<button
 											type="button"
-											class="inline-flex justify-center rounded-md border border-transparent bg-[#aec9f9] px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+											class="inline-flex justify-center rounded-md border border-transparent bg-[#a353ff] px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 											on:click={tagOperationDialog.close}
 										>
 											Cancel
@@ -144,7 +144,7 @@
 										<div class="flex flex-row gap-4">
 											<button
 												type="button"
-												class="inline-flex justify-center rounded-md border border-transparent bg-[#aec9f9] px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+												class="inline-flex justify-center rounded-md border border-transparent bg-[#a353ff] px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 												on:click={tagOperationDialog.close}
 											>
 												Cancel
@@ -208,7 +208,7 @@
 							type="checkbox"
 							bind:group={selectedTagIds}
 							value={tag.id}
-							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-[#87acec]"
+							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-[#a353ff]"
 						/>
 						<span class="text-gray-800 italic truncate xl:w-48 w-36 !lg:w-56"># {tag.name}</span>
 					</label>
@@ -255,7 +255,7 @@
 				{#each data.tagsBookmarks.data as tag (tag.id)}
 					<div
 						class="duration-150 ease-in-out text-lg font-[500] italic w-min px-4 py-2 shadow-sm rounded-lg whitespace-nowrap cursor-pointer"
-						class:bg-[#a6c1ee]={selectedTagIds.includes(tag.id)}
+						class:bg-[#a353ff]={selectedTagIds.includes(tag.id)}
 						class:bg-white={!selectedTagIds.includes(tag.id)}
 						class:text-white={selectedTagIds.includes(tag.id)}
 						on:click={() => {
@@ -310,7 +310,7 @@
 	</div>
 
 	<div class="lg:hidden fixed right-8 bottom-12">
-		<div class="flex justify-center items-center gap-6 z-10 p-3 rounded-lg shadow-lg bg-[#a6c1ee]">
+		<div class="flex justify-center items-center gap-6 z-10 p-3 rounded-lg shadow-lg bg-[#a353ff]">
 			<button
 				class="duration-1000 w-7 h-7 relative focus:outline-none"
 				class:rotate-[390deg]={isTagSettingOpen}
@@ -321,7 +321,7 @@
 					<path
 						d="M3 9.11011V14.8801C3 17.0001 3 17.0001 5 18.3501L10.5 21.5301C11.33 22.0101 12.68 22.0101 13.5 21.5301L19 18.3501C21 17.0001 21 17.0001 21 14.8901V9.11011C21 7.00011 21 7.00011 19 5.65011L13.5 2.47011C12.68 1.99011 11.33 1.99011 10.5 2.47011L5 5.65011C3 7.00011 3 7.00011 3 9.11011Z"
 						class="duration-1000"
-						stroke={isTagSettingOpen ? "#863fc8" : "#333"}
+						stroke={isTagSettingOpen ? "white" : "#ddd"}
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -329,7 +329,7 @@
 					<path
 						d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
 						class="duration-1000"
-						stroke={isTagSettingOpen ? "#863fc8" : "#333"}
+						stroke={isTagSettingOpen ? "white" : "#ddd"}
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
