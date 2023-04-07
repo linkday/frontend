@@ -51,6 +51,8 @@
 
 		tagOperationDialog.close();
 	}
+
+	let isTagSettingOpen = false;
 </script>
 
 <div class="w-[92%] mx-auto my-2 flex lg:flex-row flex-col">
@@ -131,11 +133,11 @@
 		</Transition>
 	</div>
 
-	<div class="hidden lg:block mt-12 w-1/4">
+	<div class="lg:block mt-12 lg:w-1/4 w-fit !lg:ml-4" class:hidden={!isTagSettingOpen}>
 		<div class="relative">
 			<div class="font-bold text-gray-500 relative mb-4 left-8">TAGS</div>
 			{#each data.tagsBookmarks.data as tag (tag.id)}
-				<div class="flex flex-row">
+				<div class="flex flex-row mb-2 lg:mb-1">
 					<button class="absolute" on:click={() => openTagOperationDialog(tag)}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -171,13 +173,17 @@
 							value={tag.id}
 							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-[#87acec]"
 						/>
-						<span class="text-gray-700 italic truncate w-24"># {tag.name}</span>
+						<span class="text-gray-700 italic truncate w-48"># {tag.name}</span>
 					</label>
 				</div>
 			{/each}
 		</div>
 	</div>
-	<div class="lg:w-1/2 w-full flex lg:min-h-[calc(100vh-6rem)] !lg:h-[calc(100vh-6rem)] flex-col">
+
+	<div
+		class="lg:w-1/2 w-full lg:flex lg:min-h-[calc(100vh-6rem)] !lg:h-[calc(100vh-6rem)] flex-col"
+		class:hidden={isTagSettingOpen}
+	>
 		<div class="lg:hidden bg-gray-100 flex flex-row rounded-lg px-6 mb-4 gap-6 items-center">
 			<button
 				class="w-10 h-10 relative focus:outline-none"
@@ -258,6 +264,36 @@
 					No bookmarks found in selected tags.
 				</div>
 			{/each}
+		</div>
+	</div>
+
+	<div class="lg:hidden fixed right-8 bottom-12">
+		<div class="flex justify-center items-center gap-6 z-10 p-3 rounded-lg shadow-lg bg-[#a6c1ee]">
+			<button
+				class="duration-1000 w-7 h-7 relative focus:outline-none"
+				class:rotate-[390deg]={isTagSettingOpen}
+				class:rotate-0={!isTagSettingOpen}
+				on:click={() => (isTagSettingOpen = !isTagSettingOpen)}
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+					<path
+						d="M3 9.11011V14.8801C3 17.0001 3 17.0001 5 18.3501L10.5 21.5301C11.33 22.0101 12.68 22.0101 13.5 21.5301L19 18.3501C21 17.0001 21 17.0001 21 14.8901V9.11011C21 7.00011 21 7.00011 19 5.65011L13.5 2.47011C12.68 1.99011 11.33 1.99011 10.5 2.47011L5 5.65011C3 7.00011 3 7.00011 3 9.11011Z"
+						class="duration-1000"
+						stroke={isTagSettingOpen ? "#863fc8" : "#333"}
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+					<path
+						d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+						class="duration-1000"
+						stroke={isTagSettingOpen ? "#863fc8" : "#333"}
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+			</button>
 		</div>
 	</div>
 </div>
