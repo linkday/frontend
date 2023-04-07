@@ -1,6 +1,9 @@
 <script lang="ts">
+	import type { types } from "../api/api";
 	import Bookmark from "../components/Bookmark.svelte";
 	import type { PageData } from "./$types";
+	import { createDialog } from "svelte-headlessui";
+	import Transition from "svelte-transition";
 
 	export let data: PageData;
 	let selectedTagIds: number[] = [0];
@@ -15,15 +18,125 @@
 		.flat();
 
 	let tags: HTMLDivElement;
+
+	let selectedTag: types["TagBookmarks"];
+	const tagOperationDialog = createDialog();
+
+	function openTagOperationDialog(tag: types["TagBookmarks"]) {
+		selectedTag = tag;
+		tagOperationDialog.open();
+	}
+
+	function confirmDelete() {
+		if (confirm("Are you sure you want to delete this tag?")) {
+			deleteTag();
+		}
+	}
+
+	function deleteTag() {
+		data.tagsBookmarks.data = data.tagsBookmarks.data.filter((tag) => tag.id !== selectedTag.id);
+		tagOperationDialog.close();
+	}
+
+	function saveTag() {
+		data.tagsBookmarks.data = data.tagsBookmarks.data.map((tag) => {
+			if (tag.id === selectedTag.id) {
+				return {
+					...tag,
+					name: selectedTag.name,
+				};
+			}
+			return tag;
+		});
+
+		tagOperationDialog.close();
+	}
 </script>
 
 <div class="w-[92%] mx-auto my-2 flex lg:flex-row flex-col">
+	<div class="relative z-50">
+		<Transition show={$tagOperationDialog.expanded}>
+			<Transition
+				enter="ease-out duration-300"
+				enterFrom="opacity-0"
+				enterTo="opacity-100"
+				leave="ease-in duration-200"
+				leaveFrom="opacity-100"
+				leaveTo="opacity-0"
+			>
+				<div
+					class="fixed inset-0 bg-black bg-opacity-25"
+					on:click={tagOperationDialog.close}
+					on:keypress={tagOperationDialog.close}
+				/>
+			</Transition>
+
+			<div class="fixed inset-0 overflow-y-auto">
+				<div class="flex min-h-full items-center justify-center p-4 text-center">
+					<Transition
+						enter="ease-out duration-300"
+						enterFrom="opacity-0 scale-95"
+						enterTo="opacity-100 scale-100"
+						leave="ease-in duration-200"
+						leaveFrom="opacity-100 scale-100"
+						leaveTo="opacity-0 scale-95"
+					>
+						<div
+							class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+							use:tagOperationDialog.modal
+						>
+							<h3 class="text-lg font-medium leading-6 text-gray-900">Operations</h3>
+							<div class="mt-6">
+								{#if $tagOperationDialog.expanded}
+									<input
+										type="text"
+										class="w-full border border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-900"
+										placeholder="Edit Tag"
+										bind:value={selectedTag.name}
+									/>
+								{/if}
+							</div>
+
+							<div class="mt-8">
+								<div class="flex flex-row justify-between">
+									<button
+										type="button"
+										class="inline-flex justify-center rounded-md border border-transparent bg-[#e95067] px-4 py-2 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+										on:click={confirmDelete}
+									>
+										Delete Tag
+									</button>
+									<div class="flex flex-row gap-4">
+										<button
+											type="button"
+											class="inline-flex justify-center rounded-md border border-transparent bg-[#aec9f9] px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+											on:click={tagOperationDialog.close}
+										>
+											Cancel
+										</button>
+										<button
+											type="button"
+											class="inline-flex justify-center rounded-md border border-transparent bg-[#169024] px-4 py-2 text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+											on:click={saveTag}
+										>
+											Save
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</Transition>
+				</div>
+			</div>
+		</Transition>
+	</div>
+
 	<div class="hidden lg:block mt-12 w-1/4">
 		<div class="relative">
 			<div class="font-bold text-gray-500 relative mb-4 left-8">TAGS</div>
 			{#each data.tagsBookmarks.data as tag (tag.id)}
 				<div class="flex flex-row">
-					<button class="absolute">
+					<button class="absolute" on:click={() => openTagOperationDialog(tag)}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-5 h-5 relative left-0 top-[2px]"
