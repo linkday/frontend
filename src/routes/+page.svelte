@@ -52,7 +52,25 @@
 		tagOperationDialog.close();
 	}
 
+	function createNewTag() {
+		selectedTag = {
+			// TODO: change id to uuid
+			id: data.tagsBookmarks.data.length + 1,
+			name: "",
+			bookmarks: [],
+		};
+		isCreatingTag = true;
+		tagOperationDialog.open();
+	}
+
+	function saveNewTag() {
+		data.tagsBookmarks.data = [...data.tagsBookmarks.data, selectedTag];
+		isCreatingTag = false;
+		tagOperationDialog.close();
+	}
+
 	let isTagSettingOpen = false;
+	let isCreatingTag = false;
 </script>
 
 <div class="w-[92%] mx-auto my-2 flex lg:flex-row flex-col">
@@ -93,7 +111,7 @@
 									<input
 										type="text"
 										class="w-full border border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-900"
-										placeholder="Edit Tag"
+										placeholder={isCreatingTag ? "New Tag Name" : "Edit Tag"}
 										bind:value={selectedTag.name}
 									/>
 								{/if}
@@ -101,14 +119,7 @@
 
 							<div class="mt-8">
 								<div class="flex flex-row justify-between">
-									<button
-										type="button"
-										class="inline-flex justify-center rounded-md border border-transparent bg-[#e95067] px-4 py-2 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-										on:click={confirmDelete}
-									>
-										Delete Tag
-									</button>
-									<div class="flex flex-row gap-4">
+									{#if isCreatingTag}
 										<button
 											type="button"
 											class="inline-flex justify-center rounded-md border border-transparent bg-[#aec9f9] px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -119,11 +130,35 @@
 										<button
 											type="button"
 											class="inline-flex justify-center rounded-md border border-transparent bg-[#169024] px-4 py-2 text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-											on:click={saveTag}
+											on:click={saveNewTag}
 										>
 											Save
 										</button>
-									</div>
+									{:else}
+										<button
+											type="button"
+											class="inline-flex justify-center rounded-md border border-transparent bg-[#e95067] px-4 py-2 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+											on:click={confirmDelete}
+										>
+											Delete Tag
+										</button>
+										<div class="flex flex-row gap-4">
+											<button
+												type="button"
+												class="inline-flex justify-center rounded-md border border-transparent bg-[#aec9f9] px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+												on:click={tagOperationDialog.close}
+											>
+												Cancel
+											</button>
+											<button
+												type="button"
+												class="inline-flex justify-center rounded-md border border-transparent bg-[#169024] px-4 py-2 text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+												on:click={saveTag}
+											>
+												Save
+											</button>
+										</div>
+									{/if}
 								</div>
 							</div>
 						</div>
@@ -133,7 +168,10 @@
 		</Transition>
 	</div>
 
-	<div class="lg:block mt-12 lg:w-1/4 w-fit !lg:ml-4" class:hidden={!isTagSettingOpen}>
+	<div
+		class="lg:block lg:mt-12 mt-8 lg:w-1/4 w-fit !lg:ml-4 mb-12"
+		class:hidden={!isTagSettingOpen}
+	>
 		<div class="relative">
 			<div class="font-bold text-gray-500 relative mb-4 left-8">TAGS</div>
 			{#each data.tagsBookmarks.data as tag (tag.id)}
@@ -177,11 +215,15 @@
 					</label>
 				</div>
 			{/each}
+			<button class="flex items-center gap-4 mt-2 mb-2 relative left-8" on:click={createNewTag}>
+				<div class="text-gray-400 w-5 h-5 text-3xl flex justify-center items-center">+</div>
+				<div class="text-gray-400">Add Tags</div>
+			</button>
 		</div>
 	</div>
 
 	<div
-		class="lg:w-1/2 w-full lg:flex lg:min-h-[calc(100vh-6rem)] !lg:h-[calc(100vh-6rem)] flex-col"
+		class="lg:w-1/2 w-full lg:flex min-h-[calc(100vh-6rem)] flex-col"
 		class:hidden={isTagSettingOpen}
 		class:flex={!isTagSettingOpen}
 	>
@@ -255,7 +297,7 @@
 				</svg>
 			</button>
 		</div>
-		<div class=" bg-gray-100 flex flex-col rounded-lg p-6 mb-4 gap-6 grow">
+		<div class=" h-full bg-gray-100 flex flex-col rounded-lg p-6 mb-4 gap-6 grow">
 			{#each currentBookmarks as bookmark}
 				<Bookmark {bookmark} />
 			{:else}
