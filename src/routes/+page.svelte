@@ -181,7 +181,7 @@
 	>
 		<div class="relative">
 			<div class="font-bold text-gray-500 relative mb-4 left-10">TAGS</div>
-			<div class="flex flex-row mb-2 lg:mb-1">
+			<div class="flex flex-row h-11">
 				<button class="absolute">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -210,7 +210,7 @@
 						/>
 					</svg>
 				</button>
-				<label class="flex items-center gap-6 mb-2 relative left-10">
+				<label class="flex items-center gap-6 mb-[18px] relative left-10">
 					<input
 						type="checkbox"
 						checked={selectedTagIds.length === data.tagsBookmarks.data.length}
@@ -221,7 +221,7 @@
 				</label>
 			</div>
 			{#each data.tagsBookmarks.data as tag (tag.id)}
-				<div class="flex flex-row">
+				<div class="flex flex-row h-11">
 					<button class="absolute" on:click={() => openTagOperationDialog(tag)}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -250,7 +250,7 @@
 							/>
 						</svg>
 					</button>
-					<label class="flex items-center gap-6 mb-2 relative left-10">
+					<label class="flex items-center gap-6 mb-[18px] relative left-10">
 						<input
 							type="checkbox"
 							bind:group={selectedTagIds}
@@ -258,7 +258,7 @@
 							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-main"
 						/>
 						<span
-							class="text-gray-800 italic truncate xl:max-w-[9rem] !lg:max-w-[14rem] rounded-lg shadow-sm pl-2 py-1 border-2 border-[#fffaff]"
+							class="text-gray-800 italic truncate xl:max-w-[9rem] !lg:max-w-[14rem] rounded-lg shadow-sm px-4 py-1 border-2 border-[#fffaff]"
 							># {tag.name}</span
 						>
 					</label>
