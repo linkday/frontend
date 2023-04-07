@@ -301,7 +301,7 @@
 				<Bookmark {bookmark} />
 			{:else}
 				<div
-					class="h-full text-lg font-[500] italic text-center text-gray-400 flex justify-center items-center"
+					class=" grow text-lg font-[500] italic text-center text-gray-400 flex justify-center items-center"
 				>
 					No bookmarks found in selected tags.
 				</div>
