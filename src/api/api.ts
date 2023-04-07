@@ -2,7 +2,7 @@ import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
 const User = z.object({
-	id: z.number().int(),
+	id: z.string().uuid(),
 	username: z.string(),
 	email: z.string().email(),
 	avatar_url: z.string(),
@@ -18,24 +18,24 @@ const UserPayload = z.object({
 });
 const UserResponse = z.object({ data: User });
 const Bookmark = z.object({
-	id: z.number().int(),
+	id: z.string().uuid(),
 	url: z.string(),
 	title: z.string(),
 	description: z.string(),
 	thumbnail_url: z.string(),
-	user_id: z.number().int(),
-	tag_ids: z.array(z.number()),
+	user_id: z.string().uuid(),
+	tag_ids: z.array(z.string()),
 	created_at: z.coerce.date(),
 	deleted_at: z.coerce.date().nullish(),
 });
 const TagBookmarks = z.object({
-	id: z.number().int(),
+	id: z.string().uuid(),
 	name: z.string(),
 	bookmarks: z.array(Bookmark),
 });
 const TagsBookmarksResponse = z.object({ data: z.array(TagBookmarks) });
 const Group = z.object({
-	id: z.number().int(),
+	id: z.string().uuid(),
 	name: z.string(),
 	users: z.array(User),
 	created_at: z.coerce.date(),
@@ -47,7 +47,7 @@ const GroupPayload = z.object({ name: z.string() });
 const GroupResponse = z.object({ data: Group.nullable() });
 const TagPayload = z.object({ name: z.string() });
 const Tag = z.object({
-	id: z.number().int(),
+	id: z.string().uuid(),
 	name: z.string(),
 	created_at: z.coerce.date(),
 	updated_at: z.coerce.date(),

@@ -4,9 +4,10 @@
 	import type { PageData } from "./$types";
 	import { createDialog } from "svelte-headlessui";
 	import Transition from "svelte-transition";
+	import { v4 as uuidv4 } from "uuid";
 
 	export let data: PageData;
-	let selectedTagIds: number[] = [0];
+	let selectedTagIds: string[] = data.tagsBookmarks.data.map((tag) => tag.id);
 
 	$: currentBookmarks = data.tagsBookmarks.data
 		.map((tag) => {
@@ -57,8 +58,7 @@
 
 	function createNewTag() {
 		selectedTag = {
-			// TODO: change id to uuid
-			id: data.tagsBookmarks.data.length + 1,
+			id: uuidv4(),
 			name: "",
 			bookmarks: [],
 		};
@@ -69,6 +69,14 @@
 	function saveNewTag() {
 		data.tagsBookmarks.data = [...data.tagsBookmarks.data, selectedTag];
 		tagOperationDialog.close();
+	}
+
+	function togleAllTags() {
+		if (selectedTagIds.length === data.tagsBookmarks.data.length) {
+			selectedTagIds = [];
+		} else {
+			selectedTagIds = data.tagsBookmarks.data.map((tag) => tag.id);
+		}
 	}
 </script>
 
@@ -173,8 +181,47 @@
 	>
 		<div class="relative">
 			<div class="font-bold text-gray-500 relative mb-4 left-10">TAGS</div>
+			<div class="flex flex-row mb-2 lg:mb-1">
+				<button class="absolute">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-5 h-5 relative left-0 top-[2px]"
+						viewBox="0 0 24 24"
+						fill="none"
+					>
+						<path
+							fill-rule="evenodd"
+							clip-rule="evenodd"
+							d="M13.75 5C13.75 5.9665 12.9665 6.75 12 6.75C11.0335 6.75 10.25 5.9665 10.25 5C10.25 4.0335 11.0335 3.25 12 3.25C12.9665 3.25 13.75 4.0335 13.75 5ZM13.75 19C13.75 19.9665 12.9665 20.75 12 20.75C11.0335 20.75 10.25 19.9665 10.25 19C10.25 18.0335 11.0335 17.25 12 17.25C12.9665 17.25 13.75 18.0335 13.75 19ZM12 13.75C12.9665 13.75 13.75 12.9665 13.75 12C13.75 11.0335 12.9665 10.25 12 10.25C11.0335 10.25 10.25 11.0335 10.25 12C10.25 12.9665 11.0335 13.75 12 13.75Z"
+							fill="#888"
+						/>
+					</svg>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-5 h-5 absolute left-[6px] top-[2px]"
+						viewBox="0 0 24 24"
+						fill="none"
+					>
+						<path
+							fill-rule="evenodd"
+							clip-rule="evenodd"
+							d="M13.75 5C13.75 5.9665 12.9665 6.75 12 6.75C11.0335 6.75 10.25 5.9665 10.25 5C10.25 4.0335 11.0335 3.25 12 3.25C12.9665 3.25 13.75 4.0335 13.75 5ZM13.75 19C13.75 19.9665 12.9665 20.75 12 20.75C11.0335 20.75 10.25 19.9665 10.25 19C10.25 18.0335 11.0335 17.25 12 17.25C12.9665 17.25 13.75 18.0335 13.75 19ZM12 13.75C12.9665 13.75 13.75 12.9665 13.75 12C13.75 11.0335 12.9665 10.25 12 10.25C11.0335 10.25 10.25 11.0335 10.25 12C10.25 12.9665 11.0335 13.75 12 13.75Z"
+							fill="#888"
+						/>
+					</svg>
+				</button>
+				<label class="flex items-center gap-6 mb-2 relative left-10">
+					<input
+						type="checkbox"
+						checked={selectedTagIds.length === data.tagsBookmarks.data.length}
+						class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-main"
+						on:click={togleAllTags}
+					/>
+					<span class="text-gray-800 truncate xl:w-48 w-36 !lg:w-56">All</span>
+				</label>
+			</div>
 			{#each data.tagsBookmarks.data as tag (tag.id)}
-				<div class="flex flex-row mb-2 lg:mb-1">
+				<div class="flex flex-row">
 					<button class="absolute" on:click={() => openTagOperationDialog(tag)}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -210,7 +257,10 @@
 							value={tag.id}
 							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-main"
 						/>
-						<span class="text-gray-800 italic truncate xl:w-48 w-36 !lg:w-56"># {tag.name}</span>
+						<span
+							class="text-gray-800 italic truncate xl:max-w-[9rem] !lg:max-w-[14rem] rounded-lg shadow-sm pl-2 py-1 border-2 border-[#fffaff]"
+							># {tag.name}</span
+						>
 					</label>
 				</div>
 			{/each}
@@ -296,12 +346,12 @@
 				</svg>
 			</button>
 		</div>
-		<div class=" h-full bg-gray-100 shadow-inner flex flex-col rounded-lg p-6 mb-4 gap-6 grow">
+		<div class="h-full bg-gray-100 shadow-inner flex flex-col rounded-lg p-6 mb-4 gap-6 grow">
 			{#each currentBookmarks as bookmark}
 				<Bookmark {bookmark} />
 			{:else}
 				<div
-					class=" grow text-lg font-[500] italic text-center text-gray-400 flex justify-center items-center"
+					class="grow text-lg font-[500] italic text-center text-gray-400 flex justify-center items-center"
 				>
 					No bookmarks found in selected tags.
 				</div>
