@@ -121,7 +121,7 @@
 									{#if operationMode === "create"}
 										<button
 											type="button"
-											class="inline-flex justify-center rounded-md border border-transparent bg-[#a353ff] px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+											class="inline-flex justify-center rounded-md border border-transparent bg-main px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 											on:click={tagOperationDialog.close}
 										>
 											Cancel
@@ -144,7 +144,7 @@
 										<div class="flex flex-row gap-4">
 											<button
 												type="button"
-												class="inline-flex justify-center rounded-md border border-transparent bg-[#a353ff] px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+												class="inline-flex justify-center rounded-md border border-transparent bg-main px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 												on:click={tagOperationDialog.close}
 											>
 												Cancel
@@ -208,7 +208,7 @@
 							type="checkbox"
 							bind:group={selectedTagIds}
 							value={tag.id}
-							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-[#a353ff]"
+							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-main"
 						/>
 						<span class="text-gray-800 italic truncate xl:w-48 w-36 !lg:w-56"># {tag.name}</span>
 					</label>
@@ -255,7 +255,7 @@
 				{#each data.tagsBookmarks.data as tag (tag.id)}
 					<div
 						class="duration-150 ease-in-out text-lg font-[500] italic w-min px-4 py-2 shadow-sm rounded-lg whitespace-nowrap cursor-pointer"
-						class:bg-[#a353ff]={selectedTagIds.includes(tag.id)}
+						class:bg-main={selectedTagIds.includes(tag.id)}
 						class:bg-white={!selectedTagIds.includes(tag.id)}
 						class:text-white={selectedTagIds.includes(tag.id)}
 						on:click={() => {
@@ -310,7 +310,7 @@
 	</div>
 
 	<div class="lg:hidden fixed right-8 bottom-12">
-		<div class="flex justify-center items-center gap-6 z-10 p-3 rounded-lg shadow-lg bg-[#a353ff]">
+		<div class="flex justify-center items-center gap-6 z-10 p-3 rounded-lg shadow-lg bg-main">
 			<button
 				class="duration-1000 w-7 h-7 relative focus:outline-none"
 				class:rotate-[390deg]={isTagSettingOpen}
