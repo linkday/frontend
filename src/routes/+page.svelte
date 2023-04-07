@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Bookmark from "../components/Bookmark.svelte";
 	import type { PageData } from "./$types";
-	import { createListbox } from "svelte-headlessui";
 
 	export let data: PageData;
 	let selectedTagIds: number[] = [0];
@@ -15,129 +14,58 @@
 		})
 		.flat();
 
-	$: userGroups = [
-		{
-			name: "My Bookmarks",
-			url: "/bookmarks",
-		},
-	].concat(
-		data.userGroups.data.map((group) => {
-			return {
-				name: group.name,
-				url: `/groups/${group.id}/bookmarks`,
-			};
-		}),
-	);
-
-	const listbox = createListbox({
-		label: "Actions",
-		selected: {
-			name: "My Bookmarks",
-			url: "/bookmarks",
-		},
-	});
-
-	function onSelect(e: Event) {
-		console.log("select", (e as CustomEvent).detail);
-	}
-
 	let tags: HTMLDivElement;
 </script>
 
-<div class="w-[92%] mx-auto my-2 h-[calc(100vh-6rem)] flex lg:flex-row flex-col">
-	<div class="lg:hidden z-10 flex w-full flex-col items-center justify-center">
-		<div class="mb-8 w-full">
-			<div class="relative mt-1">
-				<button
-					use:listbox.button
-					on:select={onSelect}
-					class="relative w-full cursor-default rounded-lg bg-gray-100 py-5 pl-7 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-				>
-					<div class="flex flex-row justify-between items-center w-full">
-						<span class="grow block truncate">{$listbox.selected.name}</span>
+<div class="w-[92%] mx-auto my-2 flex lg:flex-row flex-col">
+	<div class="hidden lg:block mt-12 w-1/4">
+		<div class="relative">
+			<div class="font-bold text-gray-500 relative mb-4 left-8">TAGS</div>
+			{#each data.tagsBookmarks.data as tag (tag.id)}
+				<div class="flex flex-row">
+					<button class="absolute">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							class="h-5 w-5"
-							viewBox="0 0 330 330"
-							fill="currentColor"
+							class="w-5 h-5 relative left-0 top-[2px]"
+							viewBox="0 0 24 24"
+							fill="none"
 						>
 							<path
-								xmlns="http://www.w3.org/2000/svg"
-								id="XMLID_225_"
-								d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393  c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393  s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"
+								fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="M13.75 5C13.75 5.9665 12.9665 6.75 12 6.75C11.0335 6.75 10.25 5.9665 10.25 5C10.25 4.0335 11.0335 3.25 12 3.25C12.9665 3.25 13.75 4.0335 13.75 5ZM13.75 19C13.75 19.9665 12.9665 20.75 12 20.75C11.0335 20.75 10.25 19.9665 10.25 19C10.25 18.0335 11.0335 17.25 12 17.25C12.9665 17.25 13.75 18.0335 13.75 19ZM12 13.75C12.9665 13.75 13.75 12.9665 13.75 12C13.75 11.0335 12.9665 10.25 12 10.25C11.0335 10.25 10.25 11.0335 10.25 12C10.25 12.9665 11.0335 13.75 12 13.75Z"
+								fill="#000000"
 							/>
 						</svg>
-					</div>
-				</button>
-
-				{#if $listbox.expanded}
-					<ul
-						use:listbox.items
-						class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-					>
-						{#each userGroups as value (value.name)}
-							{@const active = $listbox.active === value}
-							{@const selected = $listbox.selected === value}
-							<li
-								class="relative cursor-default select-none py-4 pl-12 pr-4"
-								class:bg-amber-100={active}
-								class:text-amber-900={active}
-								class:text-gray-900={!active}
-								use:listbox.item={{ value }}
-							>
-								<span
-									class="block truncate}"
-									class:font-medium={selected}
-									class:font-normal={!selected}>{value.name}</span
-								>
-								{#if selected}
-									<span class="absolute inset-y-0 left-0 flex items-center pl-4 text-amber-600">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											class="h-5 w-5"
-											viewBox="0 0 20 20"
-											fill="currentColor"
-										>
-											<path
-												xmlns="http://www.w3.org/2000/svg"
-												style="fill:#030104;"
-												d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"
-											/>
-										</svg>
-									</span>
-								{/if}
-							</li>
-						{/each}
-					</ul>
-				{/if}
-			</div>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="w-5 h-5 absolute left-[6px] top-[2px]"
+							viewBox="0 0 24 24"
+							fill="none"
+						>
+							<path
+								fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="M13.75 5C13.75 5.9665 12.9665 6.75 12 6.75C11.0335 6.75 10.25 5.9665 10.25 5C10.25 4.0335 11.0335 3.25 12 3.25C12.9665 3.25 13.75 4.0335 13.75 5ZM13.75 19C13.75 19.9665 12.9665 20.75 12 20.75C11.0335 20.75 10.25 19.9665 10.25 19C10.25 18.0335 11.0335 17.25 12 17.25C12.9665 17.25 13.75 18.0335 13.75 19ZM12 13.75C12.9665 13.75 13.75 12.9665 13.75 12C13.75 11.0335 12.9665 10.25 12 10.25C11.0335 10.25 10.25 11.0335 10.25 12C10.25 12.9665 11.0335 13.75 12 13.75Z"
+								fill="#000000"
+							/>
+						</svg>
+					</button>
+					<label class="flex items-center gap-4 mb-2 relative left-8">
+						<input
+							type="checkbox"
+							bind:group={selectedTagIds}
+							value={tag.id}
+							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-[#87acec]"
+						/>
+						<span class="text-gray-700 italic truncate w-24"># {tag.name}</span>
+					</label>
+				</div>
+			{/each}
 		</div>
 	</div>
-
-	<div class="hidden lg:block mt-24 w-1/4">
-		<ul class="flex flex-col gap-4">
-			<li class="font-bold text-sm text-gray-500">Personal</li>
-			<li class="pl-5 list-inside">
-				<ul class="flex flex-col gap-2">
-					<li class="text-sm">
-						<a href="/bookmarks" class="duration-200 hover:text-[#87acec]">My Bookmarks</a>
-					</li>
-				</ul>
-			</li>
-			<li class="mt-4 font-bold text-sm text-gray-500">Groups</li>
-			<li class="pl-5 list-inside">
-				<ul class="flex flex-col gap-2">
-					{#each userGroups as userGroup (userGroup.url)}
-						<li class="text-sm">
-							{userGroup.name}
-						</li>
-					{/each}
-				</ul>
-			</li>
-		</ul>
-	</div>
-	<div class="lg:w-1/2 w-full h-[calc(100vh-6rem)] flex flex-col">
-		<div class="bg-gray-100 flex flex-row rounded-lg px-6 mb-4 gap-6 items-center">
+	<div class="lg:w-1/2 w-full flex lg:min-h-[calc(100vh-6rem)] !lg:h-[calc(100vh-6rem)] flex-col">
+		<div class="lg:hidden bg-gray-100 flex flex-row rounded-lg px-6 mb-4 gap-6 items-center">
 			<button
 				class="w-10 h-10 relative focus:outline-none"
 				on:click={() => {
