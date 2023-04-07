@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from "svelte";
 	import type { types } from "../api/api";
 	import Bookmark from "../components/Bookmark.svelte";
 	import type { PageData } from "./$types";
@@ -22,8 +23,10 @@
 
 	let selectedTag: types["TagBookmarks"];
 	const tagOperationDialog = createDialog();
-	let isTagSettingOpen = false;
 	let operationMode: "create" | "edit" = "edit";
+
+	let isTagSettingOpen = false;
+	let lastScrollPosition = 0;
 
 	function openTagOperationDialog(tag: types["TagBookmarks"]) {
 		operationMode = "edit";
@@ -79,6 +82,14 @@
 		}
 	}
 </script>
+
+<svelte:window
+	on:scroll={() => {
+		if (!isTagSettingOpen) {
+			lastScrollPosition = window.scrollY;
+		}
+	}}
+/>
 
 <div class="w-[92%] mx-auto my-2 flex lg:flex-row flex-col">
 	<div class="relative z-50">
@@ -258,7 +269,7 @@
 							class="form-checkbox h-5 w-5 border-gray-300 rounded checked:accent-main"
 						/>
 						<span
-							class="text-gray-800 italic truncate xl:max-w-[9rem] !lg:max-w-[14rem] rounded-lg shadow-sm px-4 py-1 border-2 border-[#fffaff]"
+							class="text-gray-800 italic truncate xl:max-w-[9rem] !lg:max-w-[14rem] rounded-lg shadow-sm px-4 py-1 border-2 border-[#fff6ff]"
 							># {tag.name}</span
 						>
 					</label>
@@ -365,7 +376,14 @@
 				class="duration-1000 w-7 h-7 relative focus:outline-none"
 				class:rotate-[390deg]={isTagSettingOpen}
 				class:rotate-0={!isTagSettingOpen}
-				on:click={() => (isTagSettingOpen = !isTagSettingOpen)}
+				on:click={async () => {
+					isTagSettingOpen = !isTagSettingOpen;
+
+					if (!isTagSettingOpen) {
+						await tick();
+						window.scrollTo(0, lastScrollPosition);
+					}
+				}}
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
 					<path
