@@ -181,7 +181,7 @@
 	</div>
 
 	<div
-		class="lg:w-1/2 w-full lg:flex lg:min-h-[calc(100vh-6rem)] !lg:h-[calc(100vh-6rem)] flex-col"
+		class="lg:w-1/2 w-full flex lg:min-h-[calc(100vh-6rem)] !lg:h-[calc(100vh-6rem)] flex-col"
 		class:hidden={isTagSettingOpen}
 	>
 		<div class="lg:hidden bg-gray-100 flex flex-row rounded-lg px-6 mb-4 gap-6 items-center">
