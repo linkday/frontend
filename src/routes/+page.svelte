@@ -89,7 +89,7 @@
 						>
 							<h3 class="text-lg font-medium leading-6 text-gray-900">Operations</h3>
 							<div class="mt-6">
-								{#if $tagOperationDialog.expanded}
+								{#if !!selectedTag}
 									<input
 										type="text"
 										class="w-full border border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-900"
