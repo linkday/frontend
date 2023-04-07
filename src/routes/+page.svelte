@@ -21,8 +21,11 @@
 
 	let selectedTag: types["TagBookmarks"];
 	const tagOperationDialog = createDialog();
+	let isTagSettingOpen = false;
+	let operationMode: "create" | "edit" = "edit";
 
 	function openTagOperationDialog(tag: types["TagBookmarks"]) {
+		operationMode = "edit";
 		selectedTag = tag;
 		tagOperationDialog.open();
 	}
@@ -59,18 +62,14 @@
 			name: "",
 			bookmarks: [],
 		};
-		isCreatingTag = true;
+		operationMode = "create";
 		tagOperationDialog.open();
 	}
 
 	function saveNewTag() {
 		data.tagsBookmarks.data = [...data.tagsBookmarks.data, selectedTag];
-		isCreatingTag = false;
 		tagOperationDialog.close();
 	}
-
-	let isTagSettingOpen = false;
-	let isCreatingTag = false;
 </script>
 
 <div class="w-[92%] mx-auto my-2 flex lg:flex-row flex-col">
@@ -111,7 +110,7 @@
 									<input
 										type="text"
 										class="w-full border border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-900"
-										placeholder={isCreatingTag ? "New Tag Name" : "Edit Tag"}
+										placeholder={operationMode === "create" ? "New Tag Name" : "Edit Tag"}
 										bind:value={selectedTag.name}
 									/>
 								{/if}
@@ -119,7 +118,7 @@
 
 							<div class="mt-8">
 								<div class="flex flex-row justify-between">
-									{#if isCreatingTag}
+									{#if operationMode === "create"}
 										<button
 											type="button"
 											class="inline-flex justify-center rounded-md border border-transparent bg-[#aec9f9] px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
