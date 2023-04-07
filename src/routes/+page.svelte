@@ -249,7 +249,7 @@
 				</svg>
 			</button>
 			<div
-				class="grow flex flex-row gap-4 sm:overflow-hidden overflow-y-scroll bg-gray-200 p-4"
+				class="grow flex flex-row gap-4 sm:overflow-hidden overflow-y-scroll bg-gray-200 shadow-inner p-4"
 				bind:this={tags}
 			>
 				{#each data.tagsBookmarks.data as tag (tag.id)}
@@ -296,7 +296,7 @@
 				</svg>
 			</button>
 		</div>
-		<div class=" h-full bg-gray-100 flex flex-col rounded-lg p-6 mb-4 gap-6 grow">
+		<div class=" h-full bg-gray-100 shadow-inner flex flex-col rounded-lg p-6 mb-4 gap-6 grow">
 			{#each currentBookmarks as bookmark}
 				<Bookmark {bookmark} />
 			{:else}
