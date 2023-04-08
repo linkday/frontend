@@ -360,7 +360,7 @@
 	</div>
 
 	<div class="lg:hidden fixed right-8 bottom-12">
-		<div class="flex justify-center items-center gap-6 z-10 p-3 rounded-lg shadow-lg bg-main">
+		<div class="flex justify-center items-center gap-6 z-10 p-3 rounded-lg shadow-2xl bg-main">
 			<button
 				class="duration-1000 w-7 h-7 relative focus:outline-none"
 				class:rotate-[390deg]={isTagSettingOpen}
