@@ -6,15 +6,16 @@ const User = z.object({
 	username: z.string(),
 	email: z.string().email(),
 	avatar_url: z.string(),
-	last_logged_in_at: z.coerce.date(),
-	created_at: z.coerce.date(),
-	updated_at: z.coerce.date(),
+	last_logged_in_at: z.string().datetime(),
+	created_at: z.string().datetime(),
+	updated_at: z.string().datetime(),
 });
 const AuthPayload = z.object({ username: z.string(), password: z.string() });
 const UserPayload = z.object({
-	name: z.string(),
+	username: z.string(),
 	email: z.string().email(),
 	avatar_url: z.string(),
+	password: z.string(),
 });
 const UserResponse = z.object({ data: User });
 const Bookmark = z.object({
@@ -25,8 +26,8 @@ const Bookmark = z.object({
 	thumbnail_url: z.string(),
 	user_id: z.string().uuid(),
 	tag_ids: z.array(z.string()),
-	created_at: z.coerce.date(),
-	deleted_at: z.coerce.date().nullish(),
+	created_at: z.string().datetime(),
+	deleted_at: z.string().datetime().nullish(),
 });
 const TagBookmarks = z.object({
 	id: z.string().uuid(),
@@ -38,9 +39,9 @@ const Group = z.object({
 	id: z.string().uuid(),
 	name: z.string(),
 	users: z.array(User),
-	created_at: z.coerce.date(),
-	updated_at: z.coerce.date(),
-	deleted_at: z.coerce.date().nullish(),
+	created_at: z.string().datetime(),
+	updated_at: z.string().datetime(),
+	deleted_at: z.string().datetime().nullish(),
 });
 const GroupsResponse = z.object({ data: z.array(Group) });
 const GroupPayload = z.object({ name: z.string() });
@@ -49,9 +50,9 @@ const TagPayload = z.object({ name: z.string() });
 const Tag = z.object({
 	id: z.string().uuid(),
 	name: z.string(),
-	created_at: z.coerce.date(),
-	updated_at: z.coerce.date(),
-	deleted_at: z.coerce.date().nullish(),
+	created_at: z.string().datetime(),
+	updated_at: z.string().datetime(),
+	deleted_at: z.string().datetime().nullish(),
 });
 const TagResponse = z.object({ data: Tag.nullable() });
 const BookmarkPayload = z.object({ url: z.string() });
