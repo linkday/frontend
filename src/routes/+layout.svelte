@@ -7,7 +7,7 @@
 
 <header class="z-20 relative h-20 flex justify-center items-center">
 	<nav class="flex justify-between items-center">
-		<div class="z-30 bg-white absolute left-0 w-screen pb-[2px]">
+		<div class="z-30 bg-white absolute left-0 md:w-full w-screen pb-[2px]">
 			<div class="h-20 w-[92%] mx-auto flex justify-between items-center">
 				<div class="font-spectrul font-bold text-2xl">LINKDAY</div>
 				<div class="duration-500 static hidden left-0 md:flex items-center">
