@@ -2,6 +2,8 @@ import type { types } from "../api/api";
 import type { PageLoad } from "./$types";
 import { v4 as uuidv4 } from "uuid";
 
+export const prerender = true;
+
 export const load = (async () => {
 	// const tagsBookmarks = await api.getUserTags({
 	// 	params: {
