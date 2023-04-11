@@ -11,6 +11,9 @@ export default {
 				main: "#a353ff",
 				hover: "#893be1",
 			},
+			fontFamily: {
+				spectrul: ["Spectral", "serif"],
+			},
 		},
 	},
 	plugins: [],
