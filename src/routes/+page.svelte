@@ -182,7 +182,7 @@
 		<div class="relative">
 			<div class="font-bold text-gray-500 relative mb-4 left-10">TAGS</div>
 			<div class="flex flex-row h-11">
-				<button class="absolute">
+				<div class="absolute">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="w-5 h-5 relative left-0 top-[2px]"
@@ -209,7 +209,7 @@
 							fill="#888"
 						/>
 					</svg>
-				</button>
+				</div>
 				<label class="flex items-center gap-6 mb-[18px] relative left-10">
 					<input
 						type="checkbox"
@@ -222,7 +222,7 @@
 			</div>
 			{#each data.tagsBookmarks.data as tag (tag.id)}
 				<div class="flex flex-row h-11">
-					<button class="absolute" on:click={() => openTagOperationDialog(tag)}>
+					<button class="absolute" on:click={() => openTagOperationDialog(tag)} aria-label="edit">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-5 h-5 relative left-0 top-[2px]"

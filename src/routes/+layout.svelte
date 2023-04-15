@@ -5,6 +5,11 @@
 	let isMenuOpen = false;
 </script>
 
+<svelte:head>
+	<title>Linkday - Bookmark</title>
+	<meta name="description" content="The personal bookmark page of linkday app." />
+</svelte:head>
+
 <header class="z-20 relative h-20 flex justify-center items-center">
 	<nav class="flex justify-between items-center">
 		<div class="z-30 bg-white absolute left-0 md:w-full w-screen pb-[2px]">
