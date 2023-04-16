@@ -20,7 +20,7 @@
 			<img
 				src={bookmark.thumbnail_url}
 				alt={bookmark.thumbnail_url}
-				class="h-48 w-48 sm:rounded-l-lg !sm:rounded-t-lg object-cover"
+				class="h-full w-full sm:rounded-l-lg !sm:rounded-t-lg object-cover"
 			/>
 		</div>
 		<div class="flex flex-col p-6 gap-2 sm:pt-8">
