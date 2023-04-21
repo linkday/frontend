@@ -4,30 +4,39 @@
 	export let bookmark: types["Bookmark"];
 </script>
 
-<div
-	class="bg-white rounded-lg shadow-lg sm:h-48 h-[22.5rem] cursor-pointer duration-500 ease-in-out hover:shadow-2xl"
+<button
+	class="text-left self-start mb-6"
 	on:click={() => {
 		window.open(bookmark.url, "_blank");
 	}}
-	on:keypress={(e) => {
-		if (e.key === "Enter") {
-			window.open(bookmark.url, "_blank");
-		}
-	}}
 >
-	<div class="flex sm:flex-row flex-col">
-		<div class="h-48 aspect-square sm:rounded-l-lg !sm:rounded-t-lg bg-gray-300">
+	<div class="flex md:flex-col flex-row md:gap-2 gap-8">
+		<div class="md:h-64 h-full !md:aspect-square !md:self-center !md:h-[125px]">
 			<img
 				src={bookmark.thumbnail_url}
 				alt={bookmark.thumbnail_url}
-				class="h-full w-full sm:rounded-l-lg !sm:rounded-t-lg object-cover"
+				class="w-full h-full object-cover object-center rounded-md hover:opacity-80 duration-500"
 			/>
 		</div>
-		<div class="flex flex-col p-6 gap-2 sm:pt-8">
-			<div class="font-bold text-2xl line-clamp-1">{bookmark.title}</div>
-			<div class="text-gray-400 line-clamp-3">
-				{bookmark.description}
+		<div class="flex flex-col gap-2 overflow-x-hidden">
+			<div class="text-xs text-gray-400 mt-2">
+				{new Date(bookmark.created_at).toLocaleString()}
+			</div>
+			<div class="flex flex-col gap-2">
+				<div class="font-bold md:text-3xl text-xl md:line-clamp-2 line-clamp-3 hover:underline">
+					{bookmark.title}
+				</div>
+				<div class="flex flex-row gap-2 flex-wrap mt-1 !md:hidden">
+					{#each bookmark.tags as tag (tag.id)}
+						<div class="px-2 py-1 text-xs text-gray-400 bg-gray-100 rounded-md whitespace-nowrap">
+							# {tag.name}
+						</div>
+					{/each}
+				</div>
+				<div class="text-sm text-gray-500 line-clamp-3 mt-1 !md:hidden">
+					{bookmark.description}
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</button>

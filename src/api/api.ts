@@ -19,6 +19,13 @@ const UserPayload = z.object({
 	password: z.string(),
 });
 const UserResponse = z.object({ data: User });
+const Tag = z.object({
+	id: z.string().uuid(),
+	name: z.string(),
+	created_at: z.coerce.date(),
+	updated_at: z.coerce.date(),
+	deleted_at: z.coerce.date().nullish(),
+});
 const Bookmark = z.object({
 	id: z.string().uuid(),
 	url: z.string().url(),
@@ -26,16 +33,11 @@ const Bookmark = z.object({
 	description: z.string(),
 	thumbnail_url: z.string().url(),
 	user_id: z.string().uuid(),
-	tag_ids: z.array(z.string()),
+	tags: z.array(Tag),
 	created_at: z.coerce.date(),
 	deleted_at: z.coerce.date().nullish(),
 });
-const TagBookmarks = z.object({
-	id: z.string().uuid(),
-	name: z.string(),
-	bookmarks: z.array(Bookmark),
-});
-const TagsBookmarksResponse = z.object({ data: z.array(TagBookmarks) });
+const BookmarksResponse = z.object({ data: z.array(Bookmark) });
 const Group = z.object({
 	id: z.string().uuid(),
 	name: z.string(),
@@ -47,15 +49,7 @@ const Group = z.object({
 const GroupsResponse = z.object({ data: z.array(Group) });
 const GroupPayload = z.object({ name: z.string() });
 const GroupResponse = z.object({ data: Group.nullable() });
-const TagPayload = z.object({ name: z.string() });
-const Tag = z.object({
-	id: z.string().uuid(),
-	name: z.string(),
-	created_at: z.coerce.date(),
-	updated_at: z.coerce.date(),
-	deleted_at: z.coerce.date().nullish(),
-});
-const TagResponse = z.object({ data: Tag.nullable() });
+const TagsResponse = z.object({ data: z.array(Tag) });
 const BookmarkPayload = z.object({ url: z.string() });
 const BookmarkResponse = z.object({ data: Bookmark });
 const SocialUser = z.object({
@@ -78,16 +72,14 @@ export const schemas = {
 	AuthPayload,
 	UserPayload,
 	UserResponse,
+	Tag,
 	Bookmark,
-	TagBookmarks,
-	TagsBookmarksResponse,
+	BookmarksResponse,
 	Group,
 	GroupsResponse,
 	GroupPayload,
 	GroupResponse,
-	TagPayload,
-	Tag,
-	TagResponse,
+	TagsResponse,
 	BookmarkPayload,
 	BookmarkResponse,
 	SocialUser,
@@ -340,8 +332,8 @@ const endpoints = makeApi([
 	},
 	{
 		method: "get",
-		path: "/api/v1/groups/:groupId/tags/bookmarks",
-		alias: "getGroupTags",
+		path: "/api/v1/groups/:groupId/bookmarks",
+		alias: "getGroupBookmarks",
 		requestFormat: "json",
 		parameters: [
 			{
@@ -350,7 +342,7 @@ const endpoints = makeApi([
 				schema: z.string(),
 			},
 		],
-		response: TagsBookmarksResponse,
+		response: BookmarksResponse,
 		errors: [
 			{
 				status: 401,
@@ -405,94 +397,15 @@ const endpoints = makeApi([
 		],
 	},
 	{
-		method: "post",
+		method: "get",
 		path: "/api/v1/tags",
-		alias: "addTag",
+		alias: "getTags",
 		requestFormat: "json",
-		parameters: [
-			{
-				name: "body",
-				type: "Body",
-				schema: z.object({ name: z.string() }),
-			},
-		],
-		response: TagResponse,
+		response: TagsResponse,
 		errors: [
 			{
 				status: 401,
 				description: "The operation is unauthenticated",
-				schema: z.void(),
-			},
-			{
-				status: 403,
-				description: "The operation is forbidden, only Manager and Admin can create the tag",
-				schema: z.void(),
-			},
-		],
-	},
-	{
-		method: "patch",
-		path: "/api/v1/tags/:tagId",
-		alias: "updateTag",
-		requestFormat: "json",
-		parameters: [
-			{
-				name: "body",
-				type: "Body",
-				schema: z.object({ name: z.string() }),
-			},
-			{
-				name: "tagId",
-				type: "Path",
-				schema: z.number(),
-			},
-		],
-		response: TagResponse,
-		errors: [
-			{
-				status: 401,
-				description: "The operation is unauthenticated",
-				schema: z.void(),
-			},
-			{
-				status: 403,
-				description: "The operation is forbidden, only Manager and Admin can update the tag",
-				schema: z.void(),
-			},
-			{
-				status: 404,
-				description: "The tag is not found",
-				schema: z.void(),
-			},
-		],
-	},
-	{
-		method: "delete",
-		path: "/api/v1/tags/:tagId",
-		alias: "deleteTag",
-		requestFormat: "json",
-		parameters: [
-			{
-				name: "tagId",
-				type: "Path",
-				schema: z.number(),
-			},
-		],
-		response: z.void(),
-		errors: [
-			{
-				status: 401,
-				description: "The operation is unauthenticated",
-				schema: z.void(),
-			},
-			{
-				status: 403,
-				description: "The operation is forbidden, only Manager and Admin can delete the tag",
-				schema: z.void(),
-			},
-			{
-				status: 404,
-				description: "The tag is not found",
 				schema: z.void(),
 			},
 		],
@@ -587,8 +500,8 @@ const endpoints = makeApi([
 	},
 	{
 		method: "get",
-		path: "/api/v1/users/:userId/groups",
-		alias: "getUserGroups",
+		path: "/api/v1/users/:userId/bookmarks",
+		alias: "getUserBookmarks",
 		requestFormat: "json",
 		parameters: [
 			{
@@ -597,7 +510,7 @@ const endpoints = makeApi([
 				schema: z.string(),
 			},
 		],
-		response: GroupsResponse,
+		response: BookmarksResponse,
 		errors: [
 			{
 				status: 401,
@@ -613,8 +526,8 @@ const endpoints = makeApi([
 	},
 	{
 		method: "get",
-		path: "/api/v1/users/:userId/tags/bookmarks",
-		alias: "getUserTags",
+		path: "/api/v1/users/:userId/groups",
+		alias: "getUserGroups",
 		requestFormat: "json",
 		parameters: [
 			{
@@ -623,7 +536,7 @@ const endpoints = makeApi([
 				schema: z.string(),
 			},
 		],
-		response: TagsBookmarksResponse,
+		response: GroupsResponse,
 		errors: [
 			{
 				status: 401,
