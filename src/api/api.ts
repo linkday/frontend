@@ -5,7 +5,7 @@ const User = z.object({
 	id: z.string().uuid(),
 	username: z.string(),
 	email: z.string().email(),
-	avatar_url: z.string(),
+	avatar_url: z.string().url(),
 	friend_ids: z.array(z.string()),
 	last_logged_in_at: z.coerce.date(),
 	created_at: z.coerce.date(),
@@ -15,16 +15,16 @@ const AuthPayload = z.object({ username: z.string(), password: z.string() });
 const UserPayload = z.object({
 	username: z.string(),
 	email: z.string().email(),
-	avatar_url: z.string(),
+	avatar_url: z.string().url(),
 	password: z.string(),
 });
 const UserResponse = z.object({ data: User });
 const Bookmark = z.object({
 	id: z.string().uuid(),
-	url: z.string(),
+	url: z.string().url(),
 	title: z.string(),
 	description: z.string(),
-	thumbnail_url: z.string(),
+	thumbnail_url: z.string().url(),
 	user_id: z.string().uuid(),
 	tag_ids: z.array(z.string()),
 	created_at: z.coerce.date(),
