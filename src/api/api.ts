@@ -6,6 +6,7 @@ const User = z.object({
 	username: z.string(),
 	email: z.string().email(),
 	avatar_url: z.string(),
+	friend_ids: z.array(z.string()),
 	last_logged_in_at: z.coerce.date(),
 	created_at: z.coerce.date(),
 	updated_at: z.coerce.date(),
@@ -57,6 +58,20 @@ const Tag = z.object({
 const TagResponse = z.object({ data: Tag.nullable() });
 const BookmarkPayload = z.object({ url: z.string() });
 const BookmarkResponse = z.object({ data: Bookmark });
+const SocialUser = z.object({
+	id: z.string().uuid(),
+	name: z.string(),
+	email: z.string().email(),
+	bookmark_1_id: z.string().uuid(),
+	bookmark_2_id: z.string().uuid(),
+	bookmark_3_id: z.string().uuid(),
+	similarity: z.number(),
+	created_at: z.coerce.date().optional(),
+	updated_at: z.coerce.date().optional(),
+});
+const SocialUsersResponse = z.object({ data: SocialUser });
+const MatchPayload = z.object({ user_id: z.string().uuid() });
+const MatchResponse = z.object({ data: MatchPayload });
 
 export const schemas = {
 	User,
@@ -75,6 +90,10 @@ export const schemas = {
 	TagResponse,
 	BookmarkPayload,
 	BookmarkResponse,
+	SocialUser,
+	SocialUsersResponse,
+	MatchPayload,
+	MatchResponse,
 };
 
 const endpoints = makeApi([
@@ -341,6 +360,46 @@ const endpoints = makeApi([
 			{
 				status: 404,
 				description: "The group is not found",
+				schema: z.void(),
+			},
+		],
+	},
+	{
+		method: "post",
+		path: "/api/v1/social/match",
+		alias: "matchUser",
+		requestFormat: "json",
+		parameters: [
+			{
+				name: "body",
+				type: "Body",
+				schema: z.object({ user_id: z.string().uuid() }),
+			},
+		],
+		response: MatchResponse,
+		errors: [
+			{
+				status: 401,
+				description: "The operation is unauthenticated",
+				schema: z.void(),
+			},
+			{
+				status: 404,
+				description: "The user is not found",
+				schema: z.void(),
+			},
+		],
+	},
+	{
+		method: "get",
+		path: "/api/v1/social/similar-users",
+		alias: "getSimilarUsers",
+		requestFormat: "json",
+		response: SocialUsersResponse,
+		errors: [
+			{
+				status: 401,
+				description: "The operation is unauthenticated",
 				schema: z.void(),
 			},
 		],
