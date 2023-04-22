@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  openapi_mock:
+    container_name: openapi_mock
+    image: muonsoft/openapi-mock
+    environment:
+      OPENAPI_MOCK_SPECIFICATION_URL: "https://gitlab.com/linkday/meta/-/raw/main/api.yaml"
+      OPENAPI_MOCK_NULL_PROBABILITY: 0
+      OPENAPI_MOCK_CORS_ENABLED: true
+    ports:
+      - "8080:8080"

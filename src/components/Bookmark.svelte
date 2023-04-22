@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { types } from "../api/api";
+	import type { types } from "../api/api.client";
 
 	export let bookmark: types["Bookmark"];
 </script>

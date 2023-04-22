@@ -18,7 +18,8 @@
 	$: allTags = data.bookmarks.data
 		.map((bookmark) => bookmark.tags)
 		.flat()
-		.filter((tag, index, self) => self.findIndex((t) => t.id === tag.id) === index);
+		// TODO: use id instead of name (this is a workaround for mock server)
+		.filter((tag, index, self) => self.findIndex((t) => t.name === tag.name) === index);
 
 	$: possibleTagNames = filteredBookmarks
 		.map((bookmark) => bookmark.tags)
