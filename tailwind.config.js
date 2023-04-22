@@ -8,8 +8,8 @@ export default {
 				"!lg": { max: "1023px" },
 			},
 			colors: {
-				main: "#a353ff",
-				hover: "#b67ff4",
+				main: "#833CAB",
+				hover: "#a353ff",
 			},
 			fontFamily: {
 				spectrul: ["Spectral", "serif"],

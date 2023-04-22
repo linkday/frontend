@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
 	import "../index.css";
 	import Transition from "svelte-transition";
+	import { page } from "$app/stores";
 
 	let isMenuOpen = false;
+	$: addingBookmark = $page.url.pathname === "/bookmarks/add";
 </script>
 
 <svelte:head>
@@ -31,7 +34,9 @@
 				</div>
 				<div class="flex items-center gap-6">
 					<button
-						class="bg-main text-white px-5 py-1 rounded-lg hover:bg-hover whitespace-nowrap duration-300 flex flex-row items-center gap-2"
+						class="bg-main text-white px-5 py-1 rounded-lg hover:bg-hover whitespace-nowrap duration-300 flex flex-row items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-main"
+						on:click={() => goto("/bookmarks/add")}
+						disabled={addingBookmark}
 					>
 						<span class=" font-medium text-xl">+</span>
 						<span class="font-bold hidden md:inline text-sm"> Add Bookmark</span>

@@ -19,9 +19,6 @@ dependencies:
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
-  zod:
-    specifier: ^3.21.4
-    version: 3.21.4
 
 devDependencies:
   '@playwright/test':
@@ -81,6 +78,9 @@ devDependencies:
   svelte-check:
     specifier: ^3.1.4
     version: 3.1.4(postcss@8.4.21)(svelte@3.58.0)
+  sveltekit-superforms:
+    specifier: ^0.8.0
+    version: 0.8.0(@sveltejs/kit@1.15.0)(svelte@3.58.0)(zod@3.21.4)
   tailwindcss:
     specifier: ^3.3.1
     version: 3.3.1(postcss@8.4.21)
@@ -93,6 +93,9 @@ devDependencies:
   vite:
     specifier: ^4.2.1
     version: 4.2.1
+  zod:
+    specifier: ^3.21.4
+    version: 3.21.4
 
 packages:
 
@@ -2439,6 +2442,18 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
+  /sveltekit-superforms@0.8.0(@sveltejs/kit@1.15.0)(svelte@3.58.0)(zod@3.21.4):
+    resolution: {integrity: sha512-xhiVNMbn68xrtmZ3megyC91hD37NhJDGZo8xHvJjIijA9aoU+wkD6qxd+5rynQCjO3AQXQd1XO2E1jF6QFh7Zw==}
+    peerDependencies:
+      '@sveltejs/kit': 1.x
+      svelte: 3.x
+      zod: 3.x
+    dependencies:
+      '@sveltejs/kit': 1.15.0(svelte@3.58.0)(vite@4.2.1)
+      svelte: 3.58.0
+      zod: 3.21.4
+    dev: true
+
   /tailwindcss@3.3.1(postcss@8.4.21):
     resolution: {integrity: sha512-Vkiouc41d4CEq0ujXl6oiGFQ7bA3WEhUZdTgXAhtKxSy49OmKs8rEfQmupsfF0IGW8fv2iQkp1EVUuapCFrZ9g==}
     engines: {node: '>=12.13.0'}
@@ -2698,4 +2713,3 @@ packages:
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
-    dev: false
