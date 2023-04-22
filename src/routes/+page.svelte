@@ -84,7 +84,7 @@
 </div>
 
 <div class="w-full flex justify-center">
-	<div class="mx-8 mt-8 mb-16 max-w-screen-2xl flex flex-col gap-12 w-full">
+	<div class="mx-8 md:mt-8 mt-2 max-w-screen-2xl flex flex-col gap-12 w-full">
 		<div class="flex flex-row gap-4">
 			<div class="relative grow">
 				<div class="absolute inset-y-0 left-0 flex items-center p-4 pointer-events-none">
@@ -125,7 +125,7 @@
 				>
 			</button>
 		</div>
-		<div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-8">
+		<div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-8 gap-4">
 			{#each filteredBookmarks as bookmark (bookmark.id)}
 				<Bookmark {bookmark} />
 			{/each}

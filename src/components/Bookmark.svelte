@@ -5,7 +5,7 @@
 </script>
 
 <button
-	class="text-left self-start mb-6"
+	class="text-left self-start md:mb-6"
 	on:click={() => {
 		window.open(bookmark.url, "_blank");
 	}}

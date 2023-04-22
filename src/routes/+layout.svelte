@@ -31,9 +31,10 @@
 				</div>
 				<div class="flex items-center gap-6">
 					<button
-						class="font-bold text-sm bg-main text-white px-5 py-2 rounded-lg hover:bg-hover whitespace-nowrap duration-300 !md:hidden"
+						class="bg-main text-white px-5 py-1 rounded-lg hover:bg-hover whitespace-nowrap duration-300 flex flex-row items-center gap-2"
 					>
-						+ ADD BOOKMARK
+						<span class=" font-medium text-xl">+</span>
+						<span class="font-bold hidden md:inline text-sm"> Add Bookmark</span>
 					</button>
 					<button
 						class="w-10 h-10 relative focus:outline-none md:hidden"
