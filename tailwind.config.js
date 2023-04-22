@@ -9,7 +9,7 @@ export default {
 			},
 			colors: {
 				main: "#a353ff",
-				hover: "#893be1",
+				hover: "#b67ff4",
 			},
 			fontFamily: {
 				spectrul: ["Spectral", "serif"],

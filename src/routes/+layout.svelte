@@ -16,7 +16,7 @@
 			<div class="h-20 grow max-w-screen-2xl mx-8 flex justify-between items-center">
 				<div class="font-spectrul font-bold text-2xl">LINKDAY</div>
 				<div class="duration-500 static hidden left-0 md:flex items-center">
-					<ul class="flex flex-row items-center gap-[4vw] mr-8">
+					<ul class="flex flex-row items-center gap-[4vw]">
 						<li>
 							<a class="duration-200 font-bold text-sm text-gray-500 hover:text-main" href="/"
 								>BOOKMARKS</a
@@ -31,9 +31,9 @@
 				</div>
 				<div class="flex items-center gap-6">
 					<button
-						class="font-bold text-sm bg-main text-white px-5 py-2 rounded-full hover:bg-hover whitespace-nowrap"
+						class="font-bold text-sm bg-main text-white px-5 py-2 rounded-lg hover:bg-hover whitespace-nowrap duration-300 !md:hidden"
 					>
-						SIGN IN
+						+ ADD BOOKMARK
 					</button>
 					<button
 						class="w-10 h-10 relative focus:outline-none md:hidden"
