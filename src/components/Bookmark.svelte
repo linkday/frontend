@@ -11,7 +11,7 @@
 	}}
 >
 	<div class="flex md:flex-col flex-row md:gap-2 gap-8">
-		<div class="md:h-64 h-full !md:aspect-square !md:self-center !md:h-[125px]">
+		<div class="md:h-64 h-full !md:aspect-square !md:self-center !lg:h-[125px]">
 			<img
 				src={bookmark.thumbnail_url}
 				alt={bookmark.thumbnail_url}
