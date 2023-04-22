@@ -15,7 +15,11 @@
 			return filterTags.every((tag) => bookmark.tags.map((t) => t.name).includes(tag));
 		});
 
-	$: allTags = data.bookmarks.data.map((bookmark) => bookmark.tags).flat();
+	$: allTags = data.bookmarks.data
+		.map((bookmark) => bookmark.tags)
+		.flat()
+		.filter((tag, index, self) => self.findIndex((t) => t.id === tag.id) === index);
+
 	$: possibleTagNames = filteredBookmarks
 		.map((bookmark) => bookmark.tags)
 		.flat()
