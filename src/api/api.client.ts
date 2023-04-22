@@ -50,7 +50,7 @@ const GroupsResponse = z.object({ data: z.array(Group) });
 const GroupPayload = z.object({ name: z.string() });
 const GroupResponse = z.object({ data: Group.nullable() });
 const TagsResponse = z.object({ data: z.array(Tag) });
-const BookmarkPayload = z.object({ url: z.string() });
+const BookmarkPayload = z.object({ url: z.string().url() });
 const BookmarkResponse = z.object({ data: Bookmark });
 const SocialUser = z.object({
 	id: z.string().uuid(),
@@ -147,7 +147,7 @@ const endpoints = makeApi([
 			{
 				name: "body",
 				type: "Body",
-				schema: z.object({ url: z.string() }),
+				schema: z.object({ url: z.string().url() }),
 			},
 		],
 		response: BookmarkResponse,

@@ -46,7 +46,7 @@
 							Url
 							<input
 								type="text"
-								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-2"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-2 mb-1"
 								placeholder="https://example.com"
 								required
 								bind:value={$form.url}
