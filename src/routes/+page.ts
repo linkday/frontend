@@ -1,6 +1,8 @@
 import { generateMock } from "@anatine/zod-mock";
 import { schemas } from "../api/api";
 
+export const prerender = true;
+
 export const load = async () => {
 	const bookmarks = generateMock(schemas.BookmarksResponse, {
 		stringMap: {

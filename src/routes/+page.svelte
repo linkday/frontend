@@ -15,10 +15,12 @@
 			return filterTags.every((tag) => bookmark.tags.map((t) => t.name).includes(tag));
 		});
 
-	$: possibleTags = filteredBookmarks
+	$: allTags = data.bookmarks.data.map((bookmark) => bookmark.tags).flat();
+	$: possibleTagNames = filteredBookmarks
 		.map((bookmark) => bookmark.tags)
 		.flat()
-		.filter((tag, index, self) => self.indexOf(tag) === index);
+		.filter((tag, index, self) => self.indexOf(tag) === index)
+		.map((tag) => tag.name);
 
 	function toggleTag(tag: string) {
 		if (filterTags.includes(tag)) {
@@ -29,7 +31,7 @@
 	}
 </script>
 
-<div class="relative z-40">
+<div class="relative z-50">
 	<Transition show={$filterPanel.expanded}>
 		<Transition
 			enter="ease-out duration-300"
@@ -58,12 +60,12 @@
 					>
 						<h3 class="text-lg font-bold">Filter Tags</h3>
 						<div class="flex flex-row gap-2 flex-wrap">
-							{#each possibleTags as tag (tag.id)}
+							{#each allTags as tag (tag.id)}
 								<button
-									class="px-3 py-2 text-sm text-gray-400 bg-gray-100 rounded-md whitespace-nowrap"
-									class:font-medium={filterTags.includes(tag.name)}
+									class="px-3 py-2 text-sm text-gray-400 bg-gray-100 rounded-md whitespace-nowrap disabled:opacity-30 disabled:cursor-not-allowed"
 									class:text-white={filterTags.includes(tag.name)}
 									class:bg-main={filterTags.includes(tag.name)}
+									disabled={!possibleTagNames.includes(tag.name) && possibleTagNames.length !== 0}
 									on:click={() => toggleTag(tag.name)}
 								>
 									# {tag.name}
@@ -76,6 +78,7 @@
 		</div>
 	</Transition>
 </div>
+
 <div class="mx-8 mt-8 mb-16 lg:max-w-screen-2xl lg:mx-auto flex flex-col gap-12">
 	<div class="flex flex-row gap-4">
 		<div class="relative grow">
