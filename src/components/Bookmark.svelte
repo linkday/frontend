@@ -23,9 +23,9 @@
 				{new Date(bookmark.created_at).toLocaleString()}
 			</div>
 			<div class="flex flex-col gap-2">
-				<div class="font-bold md:text-3xl text-xl md:line-clamp-2 line-clamp-3 hover:underline">
+				<h1 class="font-bold md:text-3xl text-xl md:line-clamp-2 line-clamp-3 hover:underline">
 					{bookmark.title}
-				</div>
+				</h1>
 				<div class="flex flex-row gap-2 flex-wrap mt-1 !md:hidden">
 					{#each bookmark.tags as tag (tag.id)}
 						<div class="px-2 py-1 text-xs text-gray-400 bg-gray-100 rounded-md whitespace-nowrap">
