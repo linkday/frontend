@@ -50,7 +50,12 @@ const GroupsResponse = z.object({ data: z.array(Group) });
 const GroupPayload = z.object({ name: z.string() });
 const GroupResponse = z.object({ data: Group.nullable() });
 const TagsResponse = z.object({ data: z.array(Tag) });
-const BookmarkPayload = z.object({ url: z.string().url() });
+const TagPayload = z.object({ name: z.string() });
+const TagResponse = z.object({ data: Tag.nullable() });
+const BookmarkPayload = z.object({
+	url: z.string().url(),
+	tag_ids: z.array(z.string()),
+});
 const BookmarkResponse = z.object({ data: Bookmark });
 const SocialUser = z.object({
 	id: z.string().uuid(),
@@ -67,6 +72,27 @@ const SocialUsersResponse = z.object({ data: SocialUser });
 const MatchPayload = z.object({ user_id: z.string().uuid() });
 const MatchResponse = z.object({ data: MatchPayload });
 
+export type User = z.infer<typeof User>;
+export type AuthPayload = z.infer<typeof AuthPayload>;
+export type UserPayload = z.infer<typeof UserPayload>;
+export type UserResponse = z.infer<typeof UserResponse>;
+export type Tag = z.infer<typeof Tag>;
+export type Bookmark = z.infer<typeof Bookmark>;
+export type BookmarksResponse = z.infer<typeof BookmarksResponse>;
+export type Group = z.infer<typeof Group>;
+export type GroupsResponse = z.infer<typeof GroupsResponse>;
+export type GroupPayload = z.infer<typeof GroupPayload>;
+export type GroupResponse = z.infer<typeof GroupResponse>;
+export type TagsResponse = z.infer<typeof TagsResponse>;
+export type TagPayload = z.infer<typeof TagPayload>;
+export type TagResponse = z.infer<typeof TagResponse>;
+export type BookmarkPayload = z.infer<typeof BookmarkPayload>;
+export type BookmarkResponse = z.infer<typeof BookmarkResponse>;
+export type SocialUser = z.infer<typeof SocialUser>;
+export type SocialUsersResponse = z.infer<typeof SocialUsersResponse>;
+export type MatchPayload = z.infer<typeof MatchPayload>;
+export type MatchResponse = z.infer<typeof MatchResponse>;
+
 export const schemas = {
 	User,
 	AuthPayload,
@@ -80,6 +106,8 @@ export const schemas = {
 	GroupPayload,
 	GroupResponse,
 	TagsResponse,
+	TagPayload,
+	TagResponse,
 	BookmarkPayload,
 	BookmarkResponse,
 	SocialUser,
@@ -147,7 +175,7 @@ const endpoints = makeApi([
 			{
 				name: "body",
 				type: "Body",
-				schema: z.object({ url: z.string().url() }),
+				schema: BookmarkPayload,
 			},
 		],
 		response: BookmarkResponse,
@@ -412,6 +440,32 @@ const endpoints = makeApi([
 	},
 	{
 		method: "post",
+		path: "/api/v1/tags",
+		alias: "addTag",
+		requestFormat: "json",
+		parameters: [
+			{
+				name: "body",
+				type: "Body",
+				schema: z.object({ name: z.string() }),
+			},
+		],
+		response: TagResponse,
+		errors: [
+			{
+				status: 401,
+				description: "The operation is unauthenticated",
+				schema: z.void(),
+			},
+			{
+				status: 403,
+				description: "The operation is forbidden, only Leader and Admin can create the tag",
+				schema: z.void(),
+			},
+		],
+	},
+	{
+		method: "post",
 		path: "/api/v1/users",
 		alias: "addUser",
 		requestFormat: "json",
@@ -551,10 +605,6 @@ const endpoints = makeApi([
 		],
 	},
 ]);
-
-export type types = {
-	[Key in keyof typeof schemas]: z.infer<(typeof schemas)[Key]>;
-};
 
 export function createApiClient(baseUrl: string, options?: ZodiosOptions) {
 	return new Zodios(baseUrl, endpoints, options);

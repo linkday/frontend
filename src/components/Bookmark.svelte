@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { types } from "../api/api.client";
+	import type { Bookmark } from "../api/api.client";
 
-	export let bookmark: types["Bookmark"];
+	export let bookmark: Bookmark;
 </script>
 
 <button
