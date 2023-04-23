@@ -4,10 +4,16 @@
 	import ErrorMessage from "../../../components/ErrorMessage.svelte";
 	import { api } from "../../../api";
 	import { goto } from "$app/navigation";
+	import { tick } from "svelte";
 
 	export let data;
 
 	const { form, errors, constraints } = superForm(data.form);
+
+	const BookmarkPayload = schemas.BookmarkPayload.refine((val) => val.tag_ids.length > 0, {
+		message: "At least one tag is required",
+		path: ["tag_ids"],
+	});
 
 	let tagSerachString = "";
 	$: filteredTags = data.tags.data.filter((tag) => {
@@ -18,10 +24,16 @@
 
 	let selectedTags: Tag[] = [];
 	$: selectedTagNames = selectedTags.map((tag) => tag.name);
+	$: $form.tag_ids = selectedTags.map((tag) => tag.id);
 
-	function addTag(tag: Tag) {
+	async function addTag(tag: Tag) {
 		selectedTags = [...selectedTags, tag];
 		tagSerachString = "";
+
+		await tick();
+		superValidate($form, BookmarkPayload).then((result) => {
+			$errors.tag_ids = result.errors.tag_ids;
+		});
 	}
 	async function createTag() {
 		const tag = {
@@ -45,9 +57,14 @@
 
 	let selectTagPanel: HTMLDivElement;
 	$: isSelectTagPanelOpen = tagSerachString !== "";
-	function handleClickEvent(event: MouseEvent) {
+	async function handleClickEvent(event: MouseEvent) {
 		if (selectTagPanel && !selectTagPanel.contains(event.target as Node)) {
 			isSelectTagPanelOpen = false;
+
+			await tick();
+			superValidate($form, BookmarkPayload).then((result) => {
+				$errors.tag_ids = result.errors.tag_ids;
+			});
 		}
 	}
 </script>
@@ -68,7 +85,7 @@
 					method="post"
 					class="grid grid-flow-row gap-4"
 					on:submit|preventDefault={async () => {
-						const result = await superValidate($form, schemas.BookmarkPayload);
+						const result = await superValidate($form, BookmarkPayload);
 						if (!result.valid) {
 							$errors = result.errors;
 							return;
@@ -92,11 +109,10 @@
 								type="text"
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-2 mb-1"
 								placeholder="https://example.com"
-								required
 								bind:value={$form.url}
 								{...$constraints.url}
 								on:input={() => {
-									superValidate($form, schemas.BookmarkPayload).then((result) => {
+									superValidate($form, BookmarkPayload).then((result) => {
 										$errors.url = result.errors.url;
 									});
 								}}
@@ -111,42 +127,26 @@
 								type="text"
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-2 mb-1"
 								placeholder="Add tags..."
-								required
 								bind:value={tagSerachString}
-								{...$constraints.tag_ids}
-								on:input={() => {
-									superValidate($form, schemas.BookmarkPayload).then((result) => {
-										$errors.tag_ids = result.errors.tag_ids;
-									});
-								}}
 							/>
 
 							{#if isSelectTagPanelOpen}
 								<div class="absolute" bind:this={selectTagPanel}>
-									{#if filteredTags.length > 0}
-										<div
-											class="bg-white border border-gray-300 rounded-lg shadow-md p-2 flex flex-col"
-										>
-											{#each filteredTags as tag}
-												<button
-													class="flex flex-col gap-1 p-2 hover:bg-gray-100 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
-													on:click={() => addTag(tag)}
-													disabled={selectedTagNames.includes(tag.name)}
-												>
-													<div class="text-sm font-medium">{tag.name}</div>
-													<div class="text-xs text-gray-400">Click to add</div>
-												</button>
-											{/each}
-										</div>
-									{:else}
-										<div
-											class="bg-white border border-gray-300 rounded-lg shadow-md p-2 flex flex-col"
-										>
+									<div
+										class="bg-white border border-gray-300 rounded-lg shadow-md p-2 flex flex-col"
+									>
+										{#if !filteredTags.map((tag) => tag.name).includes(tagSerachString)}
 											<button
 												class="flex flex-col gap-1 p-2 hover:bg-gray-100 rounded-md"
 												on:click={createTag}
 											>
-												<div class="text-sm font-medium">No tags found</div>
+												<div class="text-sm font-medium">
+													{#if filteredTags.length > 0}
+														None of the above
+													{:else}
+														No tags found
+													{/if}
+												</div>
 												<div class="text-xs text-gray-400">
 													Create new tag:
 													<span class="text-black font-bold">
@@ -154,8 +154,18 @@
 													</span>
 												</div>
 											</button>
-										</div>
-									{/if}
+										{/if}
+										{#each filteredTags as tag}
+											<button
+												class="flex flex-col gap-1 p-2 hover:bg-gray-100 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+												on:click={() => addTag(tag)}
+												disabled={selectedTagNames.includes(tag.name)}
+											>
+												<div class="text-sm font-medium">{tag.name}</div>
+												<div class="text-xs text-gray-400">Click to add</div>
+											</button>
+										{/each}
+									</div>
 								</div>
 							{/if}
 
@@ -163,8 +173,13 @@
 								{#each selectedTagNames as tagName (tagName)}
 									<button
 										class="px-3 py-2 text-sm text-gray-400 bg-gray-100 rounded-md whitespace-nowrap disabled:opacity-30 disabled:cursor-not-allowed h-min"
-										on:click={() => {
+										on:click={async () => {
 											selectedTags = selectedTags.filter((tag) => tag.name !== tagName);
+
+											await tick();
+											superValidate($form, BookmarkPayload).then((result) => {
+												$errors.tag_ids = result.errors.tag_ids;
+											});
 										}}
 									>
 										# {tagName}
