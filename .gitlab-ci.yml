@@ -1,0 +1,44 @@
+variables:
+  CD_REPO_NAME: manifest
+
+stages:
+- build
+- deploy
+
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint: [""]
+  only:
+    - main
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile ${CI_PROJECT_DIR}/Dockerfile 
+      --destination "${CI_REGISTRY_IMAGE}:$CI_COMMIT_SHORT_SHA"
+
+deploy:
+  stage: deploy
+  image: alpine
+  only:
+    - main
+  before_script:
+    - apk add --no-cache git yq
+    - git config --global user.name GitLabCI
+    - git config --global user.email "gitlab@gitlab.com"
+    - git clone --single-branch --branch main https://$CD_USERNAME:$CD_ACCESS_TOKEN@gitlab.com/linkday/$CD_REPO_NAME.git
+  script:
+    - cd $CD_REPO_NAME
+    - yq eval -i ".app.frontend.image.tag = \"$CI_COMMIT_SHORT_SHA\"" values.yaml
+    - git commit -am "image tag update"
+    - git push origin main
+  
+
+
+
+
+
