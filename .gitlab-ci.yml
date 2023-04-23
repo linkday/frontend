@@ -2,8 +2,8 @@ variables:
   CD_REPO_NAME: manifest
 
 stages:
-- build
-- deploy
+  - build
+  - deploy
 
 build:
   stage: build
@@ -36,9 +36,3 @@ deploy:
     - yq eval -i ".app.frontend.image.tag = \"$CI_COMMIT_SHORT_SHA\"" values.yaml
     - git commit -am "image tag update"
     - git push origin main
-  
-
-
-
-
-
