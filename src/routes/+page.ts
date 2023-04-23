@@ -9,6 +9,7 @@ export const load = async () => {
 		},
 	});
 
+	// TODO: this is a workaround for mock server, remove it when real server is ready
 	for (let i = 0; i < bookmarks.data.length; i++) {
 		bookmarks.data[i].tags = bookmarks.data[i].tags.map((tag) => ({
 			...tag,
