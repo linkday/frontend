@@ -1,7 +1,5 @@
 import { api } from "../api";
 
-export const prerender = true;
-
 export const load = async () => {
 	const bookmarks = await api.getUserBookmarks({
 		params: {
