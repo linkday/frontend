@@ -34,5 +34,6 @@ deploy:
   script:
     - cd $CD_REPO_NAME
     - yq eval -i ".app.frontend.image.tag = \"$CI_COMMIT_SHORT_SHA\"" values.yaml
+    - yq eval -i ".app.frontend.image.tag = \"$CI_COMMIT_SHORT_SHA\"" values.dev.yaml
     - git commit -am "image tag update"
     - git push origin main
