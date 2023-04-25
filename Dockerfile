@@ -21,9 +21,6 @@ COPY --from=builder /usr/src/app/build ./build
 COPY --from=builder /usr/src/app/package.json ./package.json
 COPY --from=builder /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
 
-# remove prepare script, use blank instead of empty string
-RUN npm pkg set scripts.prepare=" "
-RUN pnpm i --prod
-RUN pnpm i svelte
+RUN pnpm i --ignore-scripts --prod
 
 CMD ["node", "build"]
