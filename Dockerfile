@@ -24,5 +24,6 @@ COPY --from=builder /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
 # remove prepare script, use blank instead of empty string
 RUN npm pkg set scripts.prepare=" "
 RUN pnpm i --prod
+RUN pnpm i svelte
 
 CMD ["node", "build"]
