@@ -16,5 +16,6 @@ FROM node:18.15.0-alpine3.17
 WORKDIR /usr/src/app
 
 COPY --from=builder /usr/src/app/build ./build
+COPY --from=builder /usr/src/app/package.json ./package.json
 
 CMD ["node", "build"]
