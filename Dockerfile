@@ -11,10 +11,10 @@ COPY . .
 
 RUN pnpm build
 
-FROM nginx:stable-alpine3.17
+FROM node:18.15.0-alpine3.17
 
-COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+WORKDIR /usr/src/app
 
-EXPOSE 80
+COPY --from=builder /usr/src/app/build ./build
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "build"]
