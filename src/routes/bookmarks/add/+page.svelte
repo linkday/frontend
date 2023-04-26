@@ -74,12 +74,14 @@
 <div class="w-full flex justify-center">
 	<div class="mx-8 md:mt-8 mt-2 max-w-screen-2xl flex flex-col gap-12 w-full">
 		<div class="md:grid md:grid-cols-2 gap-12">
-			<div class="xl:pr-12 lg:pr-6 h-[calc(100vh-80px-2rem)] flex items-end !md:hidden pb-24">
-				<img src="/add-bookmark.png" alt="add-bookmark" class="rounded-md shadow-inner" />
+			<div class="h-[calc(100vh-80px-2rem)] flex flex-col justify-end !md:hidden pb-16">
+				<img
+					src="/add-bookmark.png"
+					alt="add-bookmark"
+					class="rounded-md shadow-inner object-cover w-full h-full"
+				/>
 			</div>
-			<div
-				class="xl:pl-12 lg:pl-6 md:h-[calc(100vh-80px-2rem)] flex flex-col md:justify-end pb-24 gap-12"
-			>
+			<div class="h-[calc(100vh-80px-2rem)] flex flex-col md:justify-end pb-16 gap-12">
 				<div class="font-bold text-4xl">Add Bookmark</div>
 				<form
 					method="post"
