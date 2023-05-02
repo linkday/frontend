@@ -8,6 +8,8 @@ export const handle = (async ({ event, resolve }) => {
 	console.log("event.url", event.url.pathname);
 
 	if (!session) {
+		event.locals.user = undefined;
+
 		if (event.url.pathname === "/") {
 			return await resolve(event);
 		}
@@ -17,10 +19,18 @@ export const handle = (async ({ event, resolve }) => {
 
 	if (!event.locals.user) {
 		try {
-			event.locals.user = await api.getCurrentUser();
+			const user = await api.getCurrentUser({
+				headers: {
+					Cookie: `LINKDAY=${session}`,
+				},
+			});
+			event.locals.user = user.data;
 		} catch (error) {
 			console.log("error", error);
-			throw redirect(303, "/");
+
+			event.cookies.set("LINKDAY", "", {
+				maxAge: -1,
+			});
 		}
 	}
 

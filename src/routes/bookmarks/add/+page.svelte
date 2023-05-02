@@ -97,7 +97,7 @@
 							.addBookmark($form)
 							.then((resp) => {
 								console.log(resp);
-								goto("/");
+								goto("/bookmarks");
 							})
 							.catch((err) => {
 								console.log(err);

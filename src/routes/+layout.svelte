@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
+	import { goto, invalidateAll } from "$app/navigation";
 	import "../index.css";
 	import Transition from "svelte-transition";
 	import { page } from "$app/stores";
 	import { env } from "$env/dynamic/public";
+	import { api } from "../api";
 
 	export let data;
 
@@ -11,31 +12,36 @@
 	$: addingBookmark = $page.url.pathname === "/bookmarks/add";
 
 	function login() {
-		if (env.PUBLIC_ENV === "development") {
-			fetch(env.PUBLIC_API_PREFIX + "/api/v1/test-callback", {
+		fetch(
+			env.PUBLIC_API_PREFIX +
+				"/api/v1/auth" +
+				(env.PUBLIC_ENV === "development" ? "/test-callback" : "/callback"),
+			{
 				method: "GET",
+				credentials: "include",
+			},
+		)
+			.then((res) => {
+				if (res.ok) {
+					goto("/bookmarks", {
+						invalidateAll: true,
+					});
+				}
 			})
-				.then((res) => {
-					if (res.ok) {
-						goto("/bookmarks");
-					}
-				})
-				.catch((err) => {
-					console.error(err);
-				});
-		} else {
-			fetch(env.PUBLIC_API_PREFIX + "/api/v1/callback", {
-				method: "GET",
+			.catch((err) => {
+				console.error(err);
+			});
+	}
+
+	function logout() {
+		isMenuOpen = false;
+		api
+			.logout(undefined, {
+				withCredentials: true,
 			})
-				.then((res) => {
-					if (res.ok) {
-						goto("/bookmarks");
-					}
-				})
-				.catch((err) => {
-					console.error(err);
-				});
-		}
+			.then(() => {
+				invalidateAll();
+			});
 	}
 </script>
 
@@ -53,13 +59,22 @@
 					<div class="duration-500 static hidden left-0 md:flex items-center">
 						<ul class="flex flex-row items-center gap-[4vw]">
 							<li>
-								<a class="duration-200 font-bold text-sm text-gray-500 hover:text-main" href="/"
-									>BOOKMARKS</a
+								<a
+									class="duration-200 font-bold text-sm text-gray-500 hover:text-main"
+									href="/bookmarks">BOOKMARKS</a
 								>
 							</li>
 							<li>
-								<a class="duration-200 font-bold text-sm text-gray-500 hover:text-main" href="/"
-									>FEEDS</a
+								<a
+									class="duration-200 font-bold text-sm text-gray-500 hover:text-main"
+									href="/bookmarks">FEEDS</a
+								>
+							</li>
+							<li>
+								<a
+									class="duration-200 font-bold text-sm text-gray-500 hover:text-main"
+									href="/"
+									on:click|preventDefault={logout}>LOGOUT</a
 								>
 							</li>
 						</ul>
@@ -68,7 +83,7 @@
 				<div class="flex items-center gap-6">
 					{#if data.user}
 						<button
-							class="bg-main text-white px-5 py-1 rounded-lg hover:bg-hover whitespace-nowrap duration-300 flex flex-row items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-main"
+							class="bg-main h-9 text-white px-5 py-1 rounded-lg hover:bg-hover whitespace-nowrap duration-300 flex flex-row items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-main"
 							on:click={() => goto("/bookmarks/add")}
 							disabled={addingBookmark}
 						>
@@ -103,7 +118,7 @@
 						</button>
 					{:else}
 						<button
-							class="bg-main text-white px-5 py-1 rounded-lg hover:bg-hover whitespace-nowrap duration-300 flex flex-row items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-main"
+							class="bg-main h-9 text-white px-5 py-1 rounded-lg hover:bg-hover whitespace-nowrap duration-300 flex flex-row items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-main"
 							on:click={login}
 						>
 							<span class="font-bold inline text-sm">Get Started</span>
@@ -114,19 +129,28 @@
 		</div>
 		{#if data.user}
 			<div
-				class="duration-500 md:hidden fixed bg-white min-h-[20vh] left-0 w-full flex items-center shadow-lg"
+				class="duration-500 md:hidden fixed bg-white min-h-[30vh] left-0 w-full flex items-center shadow-lg"
 				class:top-[5rem]={isMenuOpen}
 				class:top-[-50rem]={!isMenuOpen}
 			>
 				<ul class="flex flex-col gap-8 mx-8">
 					<li>
-						<a class="duration-200 font-bold text-sm text-gray-500 hover:text-main" href="/"
-							>BOOKMARKS</a
+						<a
+							class="duration-200 font-bold text-sm text-gray-500 hover:text-main"
+							href="/bookmarks">BOOKMARKS</a
 						>
 					</li>
 					<li>
-						<a class="duration-200 font-bold text-sm text-gray-500 hover:text-main" href="/"
-							>FEEDS</a
+						<a
+							class="duration-200 font-bold text-sm text-gray-500 hover:text-main"
+							href="/bookmarks">FEEDS</a
+						>
+					</li>
+					<li>
+						<a
+							class="duration-200 font-bold text-sm text-gray-500 hover:text-main"
+							href="/"
+							on:click|preventDefault={logout}>LOGOUT</a
 						>
 					</li>
 				</ul>
