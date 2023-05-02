@@ -43,15 +43,14 @@
 		if (!result) return;
 
 		try {
-			const newTag = await api.addTag(tag);
+			const newTag = await api.addTag(tag, {
+				withCredentials: true,
+			});
 			if (newTag.data) {
-				// TODO: this is a workaround for mock server, remove it when real server is ready
-				newTag.data.name = newTag.data.name.substring(0, 5);
-
 				addTag(newTag.data);
 			}
-		} catch (error) {
-			console.error(error);
+		} catch (err) {
+			console.error(err);
 		}
 	}
 
@@ -94,7 +93,9 @@
 						}
 
 						api
-							.addBookmark($form)
+							.addBookmark($form, {
+								withCredentials: true,
+							})
 							.then((resp) => {
 								console.log(resp);
 								goto("/bookmarks");
