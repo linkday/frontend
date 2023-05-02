@@ -36,6 +36,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Linkday - Bookmarks</title>
+	<meta name="description" content="The personal bookmark page of linkday app." />
+</svelte:head>
+
 <div class="relative z-50">
 	<Transition show={$filterPanel.expanded}>
 		<Transition
@@ -116,6 +121,7 @@
 			<button
 				class="relative focus:outline-none border border-gray-300 rounded-lg h-[54px] aspect-square flex justify-center items-center pt-0.5"
 				on:click={filterPanel.open}
+				id="filter-button"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none">
 					<path

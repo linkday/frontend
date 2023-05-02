@@ -68,6 +68,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Linkday - Add Bookmark</title>
+	<meta name="description" content="The add bookmark page of linkday app." />
+</svelte:head>
+
 <svelte:window on:click={handleClickEvent} />
 
 <div class="w-full flex justify-center">

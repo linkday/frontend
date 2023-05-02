@@ -6,4 +6,7 @@ export default defineConfig({
 	ssr: {
 		noExternal: ["svelte-headlessui"],
 	},
+	server: {
+		host: "localhost",
+	},
 });
