@@ -55,15 +55,56 @@
 	}
 
 	let selectTagPanel: HTMLDivElement;
+	let currentFocusIndex = 0;
 	$: isSelectTagPanelOpen = tagSerachString !== "";
 	async function handleClickEvent(event: MouseEvent) {
 		if (selectTagPanel && !selectTagPanel.contains(event.target as Node)) {
 			isSelectTagPanelOpen = false;
+			currentFocusIndex = 0;
 
 			await tick();
 			superValidate($form, BookmarkPayload).then((result) => {
 				$errors.tag_ids = result.errors.tag_ids;
 			});
+		}
+	}
+
+	let tagButtons: HTMLButtonElement[] = [];
+	let tagInputElement: HTMLInputElement;
+	$: filteredTagButtons = tagButtons.filter((button) => {
+		if (!button) return false;
+
+		return !button.disabled;
+	});
+
+	function onTagKeyDown(event: KeyboardEvent) {
+		if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+			event.preventDefault();
+
+			if (filteredTagButtons.length === 0) return;
+
+			if (document.activeElement === tagInputElement) {
+				filteredTagButtons[currentFocusIndex]?.focus();
+
+				return;
+			}
+
+			if (event.key === "ArrowDown") {
+				currentFocusIndex = (currentFocusIndex + 1) % filteredTagButtons.length;
+				filteredTagButtons[currentFocusIndex]?.focus();
+			} else if (event.key === "ArrowUp") {
+				if (currentFocusIndex === 0) {
+					tagInputElement.focus();
+
+					return;
+				}
+
+				currentFocusIndex =
+					(currentFocusIndex - 1 + filteredTagButtons.length) % filteredTagButtons.length;
+				filteredTagButtons[currentFocusIndex]?.focus();
+			}
+		} else {
+			currentFocusIndex = 0;
 		}
 	}
 </script>
@@ -87,29 +128,7 @@
 			</div>
 			<div class="h-[calc(100vh-80px-2rem)] flex flex-col md:justify-end pb-16 gap-12">
 				<div class="font-bold text-4xl">Add Bookmark</div>
-				<form
-					method="post"
-					class="grid grid-flow-row gap-4"
-					on:submit|preventDefault={async () => {
-						const result = await superValidate($form, BookmarkPayload);
-						if (!result.valid) {
-							$errors = result.errors;
-							return;
-						}
-
-						api
-							.addBookmark($form, {
-								withCredentials: true,
-							})
-							.then((resp) => {
-								console.log(resp);
-								goto("/bookmarks");
-							})
-							.catch((err) => {
-								console.log(err);
-							});
-					}}
-				>
+				<div class="grid grid-flow-row gap-4">
 					<div class="flex flex-col gap-2">
 						<label class="block mb-2 text-md font-medium text-gray-900">
 							Url
@@ -136,17 +155,20 @@
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-2 mb-1"
 								placeholder="Add tags..."
 								bind:value={tagSerachString}
+								on:keydown={onTagKeyDown}
+								bind:this={tagInputElement}
 							/>
 
 							{#if isSelectTagPanelOpen}
-								<div class="absolute" bind:this={selectTagPanel}>
+								<div class="absolute" bind:this={selectTagPanel} on:keydown={onTagKeyDown}>
 									<div
 										class="bg-white border border-gray-300 rounded-lg shadow-md p-2 flex flex-col"
 									>
 										{#if !filteredTags.map((tag) => tag.name).includes(tagSerachString)}
 											<button
-												class="flex flex-col gap-1 p-2 hover:bg-gray-100 rounded-md"
+												class="flex flex-col gap-1 p-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md"
 												on:click={createTag}
+												bind:this={tagButtons[0]}
 											>
 												<div class="text-sm font-medium">
 													{#if filteredTags.length > 0}
@@ -163,11 +185,12 @@
 												</div>
 											</button>
 										{/if}
-										{#each filteredTags as tag}
+										{#each filteredTags as tag, index (tag.id)}
 											<button
-												class="flex flex-col gap-1 p-2 hover:bg-gray-100 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+												class="flex flex-col gap-1 p-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
 												on:click={() => addTag(tag)}
 												disabled={selectedTagNames.includes(tag.name)}
+												bind:this={tagButtons[index + 1]}
 											>
 												<div class="text-sm font-medium">{tag.name}</div>
 												<div class="text-xs text-gray-400">Click to add</div>
@@ -212,12 +235,31 @@
 					</div>
 					<div class="flex justify-end">
 						<button
-							type="submit"
+							on:click={async () => {
+								const result = await superValidate($form, BookmarkPayload);
+								if (!result.valid) {
+									$errors = result.errors;
+									return;
+								}
+
+								api
+									.addBookmark($form, {
+										withCredentials: true,
+									})
+									.then((resp) => {
+										console.log(resp);
+										goto("/bookmarks");
+									})
+									.catch((err) => {
+										console.log(err);
+									});
+							}}
 							class=" w-full text-white bg-main hover:bg-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-							>Add</button
 						>
+							Add
+						</button>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
