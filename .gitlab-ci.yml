@@ -14,6 +14,8 @@ test:
     PUBLIC_API_PREFIX: $CI_TEST_PUBLIC_API_PREFIX
   only:
     - main
+  before_script:
+    - npm install -g pnpm
   script:
     - pnpm i
     - pnpm exec playwright install
