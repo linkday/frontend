@@ -1,5 +1,5 @@
 import { superValidate } from "sveltekit-superforms/server";
-import { schemas } from "../../../api/api.client";
+import { schemas } from "../../../api/api.gen";
 import { api } from "../../../api";
 import { redirect } from "@sveltejs/kit";
 

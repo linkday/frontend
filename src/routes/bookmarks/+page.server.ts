@@ -1,6 +1,6 @@
 import { redirect } from "@sveltejs/kit";
 import { api } from "../../api";
-import type { BookmarksResponse } from "../../api/api.client";
+import type { BookmarksResponse } from "../../api/api.gen";
 
 export const load = async ({ locals, cookies }) => {
 	if (!cookies.get("LINKDAY")) {

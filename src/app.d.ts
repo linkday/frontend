@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { User } from "./api/api.client";
+import type { User } from "./api/api.gen";
 
 // for information about these interfaces
 declare global {

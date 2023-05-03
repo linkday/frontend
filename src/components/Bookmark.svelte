@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Bookmark } from "../api/api.client";
+	import type { Bookmark } from "../api/api.gen";
 
 	export let bookmark: Bookmark;
 </script>
@@ -13,8 +13,9 @@
 	<div class="flex md:flex-col flex-row md:gap-2 gap-8">
 		<div class="md:h-64 h-full !md:aspect-square !md:self-center !lg:h-[125px]">
 			<img
-				src={bookmark.thumbnail_url}
-				alt={bookmark.thumbnail_url}
+				src={bookmark.thumbnail_url ??
+					"https://gis.rchss.sinica.edu.tw/wp-content/plugins/ultimate-post/assets/img/ultp-fallback-img.png"}
+				alt={bookmark.thumbnail_url ?? "fallback_img"}
 				class="w-full h-full object-cover object-center rounded-md hover:opacity-80 duration-500"
 			/>
 		</div>

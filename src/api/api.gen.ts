@@ -30,7 +30,7 @@ const Bookmark = z.object({
 	url: z.string().url(),
 	title: z.string(),
 	description: z.string(),
-	thumbnail_url: z.string().url(),
+	thumbnail_url: z.string().url().optional(),
 	user_id: z.string().uuid(),
 	tags: z.array(Tag),
 	created_at: z.string().datetime(),

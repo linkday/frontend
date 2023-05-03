@@ -1,8 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { v4 as uuidv4 } from "uuid";
 
-const tag = uuidv4();
-
 async function goToHomePage(page: Page) {
 	await page.goto("/");
 
@@ -66,6 +64,8 @@ test("add bookmark and validation", async ({ page }) => {
 	await page.getByPlaceholder("https://example.com").fill("");
 
 	expect(await page.isVisible("text=Invalid url")).toBeTruthy();
+
+	const tag = uuidv4();
 
 	await page.getByPlaceholder("Add tags...").click();
 	await page.getByPlaceholder("Add tags...").fill(tag);

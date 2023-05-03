@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { superValidate, superForm } from "sveltekit-superforms/client";
-	import { schemas, type Tag } from "../../../api/api.client";
+	import { schemas, type Tag } from "../../../api/api.gen";
 	import ErrorMessage from "../../../components/ErrorMessage.svelte";
 	import { api } from "../../../api";
 	import { goto } from "$app/navigation";
