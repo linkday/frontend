@@ -8,7 +8,7 @@ stages:
 
 test:
   stage: test
-  image: 18.15.0-alpine3.17
+  image: node:18.15.0-alpine3.17
   variables:
     PUBLIC_ENV: $CI_TEST_PUBLIC_ENV
     PUBLIC_API_PREFIX: $CI_TEST_PUBLIC_API_PREFIX
