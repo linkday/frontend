@@ -27,6 +27,7 @@
 	$: $form.tag_ids = selectedTags.map((tag) => tag.id);
 
 	async function addTag(tag: Tag) {
+		data.tags.data = [...data.tags.data, tag];
 		selectedTags = [...selectedTags, tag];
 		tagSerachString = "";
 

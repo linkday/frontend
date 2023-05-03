@@ -24,5 +24,9 @@ export const load = async ({ locals, cookies }) => {
 		console.log(err);
 	}
 
+	bookmarks.data = bookmarks.data.sort((a, b) => {
+		return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+	});
+
 	return { bookmarks };
 };

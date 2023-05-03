@@ -68,7 +68,27 @@
 						class="w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all flex flex-col gap-6"
 						use:filterPanel.modal
 					>
-						<h3 class="text-lg font-bold">Filter Tags</h3>
+						<div class="flex flex-row justify-between">
+							<h3 class="text-lg font-bold">Filter Tags</h3>
+							<button
+								class="focus:outline-none w-5 h-5"
+								id="close-filter-panel"
+								on:click={filterPanel.close}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-3 w-3 ml-1 inline-block"
+									viewBox="0 0 20 20"
+									fill="#333"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M3.293 3.293a1 1 0 011.414 0L10 8.586l5.293-5.293a1 1 0 111.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									/>
+								</svg></button
+							>
+						</div>
 						<div class="flex flex-row gap-2 flex-wrap">
 							{#each allTags as tag (tag.id)}
 								<button
@@ -121,7 +141,7 @@
 			<button
 				class="relative focus:outline-none border border-gray-300 rounded-lg h-[54px] aspect-square flex justify-center items-center pt-0.5"
 				on:click={filterPanel.open}
-				id="filter-button"
+				id="open-filter-panel"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none">
 					<path
