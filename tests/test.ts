@@ -47,7 +47,7 @@ test("login and logout", async ({ page }) => {
 	await logout(page);
 });
 
-test("add bookmark", async ({ page }) => {
+test("add bookmark and validation", async ({ page }) => {
 	await goToHomePage(page);
 
 	await login(page);
