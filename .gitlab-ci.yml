@@ -15,7 +15,7 @@ test:
   only:
     - main
   script:
-    - npm ci
+    - npm i
     - npm run test
 
 build:
