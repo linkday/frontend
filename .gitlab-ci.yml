@@ -16,7 +16,7 @@ test:
     - main
   script:
     - npm i
-    - DEBUG=pw:browser* npx playwright test
+    - npx playwright test
 
 build:
   stage: build
