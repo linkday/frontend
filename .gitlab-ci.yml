@@ -2,8 +2,22 @@ variables:
   CD_REPO_NAME: manifest
 
 stages:
+  - test
   - build
   - deploy
+
+test:
+  stage: test
+  image: 18.15.0-alpine3.17
+  variables:
+    PUBLIC_ENV: $CI_TEST_PUBLIC_ENV
+    PUBLIC_API_PREFIX: $CI_TEST_PUBLIC_API_PREFIX
+  only:
+    - main
+  script:
+    - pnpm i
+    - pnpm exec playwright install
+    - pnpm test
 
 build:
   stage: build
