@@ -6,8 +6,7 @@ const config: PlaywrightTestConfig = {
 		port: 4173,
 	},
 	testDir: "tests",
-	// fullyParallel: true,
-	workers: 1,
+	fullyParallel: true,
 	timeout: 300000,
 };
 
