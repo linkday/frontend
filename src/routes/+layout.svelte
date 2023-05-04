@@ -3,7 +3,6 @@
 	import "../index.css";
 	import Transition from "svelte-transition";
 	import { page } from "$app/stores";
-	import { env } from "$env/dynamic/public";
 	import { api } from "../api";
 
 	export let data;
@@ -12,25 +11,7 @@
 	$: addingBookmark = $page.url.pathname === "/bookmarks/add";
 
 	function login() {
-		fetch(
-			env.PUBLIC_API_PREFIX +
-				"/api/v1/auth" +
-				(env.PUBLIC_ENV === "development" ? "/test-callback" : "/callback"),
-			{
-				method: "GET",
-				credentials: "include",
-			},
-		)
-			.then((res) => {
-				if (res.ok) {
-					goto("/bookmarks", {
-						invalidateAll: true,
-					});
-				}
-			})
-			.catch((err) => {
-				console.error(err);
-			});
+		goto("/login");
 	}
 
 	function logout() {

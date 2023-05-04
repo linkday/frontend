@@ -1,6 +1,5 @@
-export const load = async ({ locals, cookies }) => {
+export const load = async ({ locals }) => {
 	return {
 		user: locals.user,
-		session: cookies.get("LINKDAY"),
 	};
 };

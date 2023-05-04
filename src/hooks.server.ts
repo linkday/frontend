@@ -10,7 +10,7 @@ export const handle = (async ({ event, resolve }) => {
 	if (!session) {
 		event.locals.user = undefined;
 
-		if (event.url.pathname === "/") {
+		if (event.url.pathname === "/" || event.url.pathname === "/login") {
 			return await resolve(event);
 		}
 
