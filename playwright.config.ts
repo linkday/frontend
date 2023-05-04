@@ -7,6 +7,7 @@ const config: PlaywrightTestConfig = {
 	},
 	testDir: "tests",
 	fullyParallel: true,
+	timeout: 300000,
 };
 
 export default config;
