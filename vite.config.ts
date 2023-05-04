@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
 	plugins: [sveltekit()],
 	ssr: {
-		noExternal: ["svelte-headlessui"],
+		noExternal: ["svelte-headlessui", "three", "troika-three-text"],
 	},
 	server: {
 		host: "localhost",
