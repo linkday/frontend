@@ -7,6 +7,7 @@ const config: PlaywrightTestConfig = {
 	},
 	testDir: "tests",
 	// fullyParallel: true,
+	workers: 1,
 	timeout: 300000,
 };
 
