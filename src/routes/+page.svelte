@@ -4,7 +4,16 @@
 	import * as THREE from "three";
 	import { onMount } from "svelte";
 	import { World } from "@threlte/rapier";
+	import { useGltf } from "@threlte/extras";
+	import { derived } from "svelte/store";
 
+	const { gltf } = useGltf("/3D/bookmark.gltf", {
+		useDraco: true,
+	});
+	const bookmark = derived(gltf, (gltf) => {
+		if (!gltf || !gltf.nodes["Scene"]) return;
+		return gltf.nodes["Scene"] as THREE.Mesh;
+	});
 	let canvasDiv: HTMLDivElement;
 
 	let bookmarkMetadata: {
@@ -45,9 +54,11 @@
 			<T.DirectionalLight position={[-3, 10, -10]} intensity={0.2} />
 			<T.AmbientLight intensity={0.2} />
 
-			{#each bookmarkMetadata as { position, rotation }}
-				<Bookmark {position} {rotation} />
-			{/each}
+			{#if $bookmark}
+				{#each bookmarkMetadata as { position, rotation }}
+					<Bookmark {position} {rotation} object={$bookmark.clone()} />
+				{/each}
+			{/if}
 		</World>
 	</Canvas>
 </div>
