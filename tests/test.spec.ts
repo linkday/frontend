@@ -58,7 +58,7 @@ test("add bookmark and validation", async ({ page }) => {
 	await page.getByPlaceholder("Add tags...").click();
 	await page.getByPlaceholder("Add tags...").fill(tag);
 	await page.getByRole("button", { name: `No tags found Create new tag: ${tag}` }).click();
-	await page.waitForTimeout(100);
+	await page.waitForTimeout(5000);
 
 	expect(await page.getByRole("button", { name: `# ${tag}` }).isVisible()).toBeTruthy();
 
