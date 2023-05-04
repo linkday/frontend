@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { goto, invalidateAll } from "$app/navigation";
+	import { goto } from "$app/navigation";
 	import "../index.css";
 	import Transition from "svelte-transition";
 	import { page } from "$app/stores";
-	import { api } from "../api";
 
 	export let data;
 
@@ -16,13 +15,9 @@
 
 	function logout() {
 		isMenuOpen = false;
-		api
-			.logout(undefined, {
-				withCredentials: true,
-			})
-			.then(() => {
-				invalidateAll();
-			});
+		goto("/logout", {
+			invalidateAll: true,
+		});
 	}
 </script>
 

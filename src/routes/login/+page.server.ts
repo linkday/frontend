@@ -17,7 +17,6 @@ export const load = async ({ cookies }) => {
 			res.headers.get("set-cookie") ?? undefined,
 		)) {
 			const { name, value } = set_cookie_parser.parseString(str);
-			console.log(name, value);
 			cookies.set(name, value);
 		}
 	}
