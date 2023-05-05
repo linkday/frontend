@@ -44,6 +44,21 @@
 		if (!rigidBody.isMoving()) {
 			rigidBody.setLinvel({ x: 0, y: 0.25, z: 0 }, true);
 		}
+
+		let y = rigidBody.translation().y;
+
+		if (y > 8) {
+			y = -8;
+		}
+
+		rigidBody.setTranslation(
+			{
+				x: rigidBody.translation().x,
+				y: y,
+				z: rigidBody.translation().z,
+			},
+			true,
+		);
 	});
 </script>
 
