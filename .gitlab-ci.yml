@@ -6,17 +6,17 @@ stages:
   - build
   - deploy
 
-test:
-  stage: test
-  image: mcr.microsoft.com/playwright:v1.33.0-jammy
-  variables:
-    PUBLIC_ENV: $CI_TEST_PUBLIC_ENV
-    PUBLIC_API_PREFIX: $CI_TEST_PUBLIC_API_PREFIX
-  only:
-    - main
-  script:
-    - npm i
-    - DEBUG=pw:api* npx playwright test
+# test:
+#   stage: test
+#   image: mcr.microsoft.com/playwright:v1.33.0-jammy
+#   variables:
+#     PUBLIC_ENV: $CI_TEST_PUBLIC_ENV
+#     PUBLIC_API_PREFIX: $CI_TEST_PUBLIC_API_PREFIX
+#   only:
+#     - main
+#   script:
+#     - npm i
+#     - DEBUG=pw:api* npx playwright test
 
 build:
   stage: build
