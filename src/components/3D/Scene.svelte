@@ -6,7 +6,14 @@
 	import { World } from "@threlte/rapier";
 	import { useGltf } from "@threlte/extras";
 	import { derived } from "svelte/store";
-	import { EffectComposer, EffectPass, RenderPass, DepthOfFieldEffect } from "postprocessing";
+	import {
+		EffectComposer,
+		EffectPass,
+		RenderPass,
+		DepthOfFieldEffect,
+		SMAAEffect,
+		SMAAPreset,
+	} from "postprocessing";
 
 	const { scene, renderer, camera } = useThrelte();
 	scene.background = new THREE.Color(0x833cab);
@@ -21,9 +28,17 @@
 			new EffectPass(
 				camera,
 				new DepthOfFieldEffect(camera, {
-					focusDistance: 0.075,
-					focalLength: 0.025,
-					bokehScale: 2.5,
+					focusDistance: 0.06,
+					focalLength: 0.04,
+					bokehScale: 3,
+				}),
+			),
+		);
+		composer.addPass(
+			new EffectPass(
+				camera,
+				new SMAAEffect({
+					preset: SMAAPreset.ULTRA,
 				}),
 			),
 		);
