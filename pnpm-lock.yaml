@@ -3,7 +3,7 @@ lockfileVersion: '6.0'
 dependencies:
   '@sveltejs/adapter-node':
     specifier: ^1.2.4
-    version: 1.2.4(@sveltejs/kit@1.15.10)
+    version: 1.2.4(@sveltejs/kit@1.16.0)
   '@zodios/core':
     specifier: ^10.9.0
     version: 10.9.0(axios@1.4.0)(zod@3.21.4)
@@ -28,26 +28,26 @@ devDependencies:
     specifier: ^1.33.0
     version: 1.33.0
   '@sveltejs/kit':
-    specifier: ^1.15.10
-    version: 1.15.10(svelte@3.58.0)(vite@4.3.4)
+    specifier: ^1.16.0
+    version: 1.16.0(svelte@3.58.0)(vite@4.3.4)
   '@threlte/core':
-    specifier: ^5.0.9
-    version: 5.0.9
+    specifier: 6.0.0-next.6
+    version: 6.0.0-next.6
   '@threlte/extras':
-    specifier: ^4.9.3
-    version: 4.9.3(three@0.150.1)
+    specifier: 5.0.0-next.11
+    version: 5.0.0-next.11(three@0.152.2)
   '@threlte/preprocess':
     specifier: ^0.0.2
     version: 0.0.2
   '@threlte/rapier':
-    specifier: ^0.5.0
-    version: 0.5.0
+    specifier: 1.0.0-next.2
+    version: 1.0.0-next.2
   '@types/set-cookie-parser':
     specifier: ^2.4.2
     version: 2.4.2
   '@types/three':
-    specifier: ^0.150.0
-    version: 0.150.0
+    specifier: ^0.152.0
+    version: 0.152.0
   '@types/uuid':
     specifier: ^9.0.1
     version: 9.0.1
@@ -91,20 +91,20 @@ devDependencies:
     specifier: ^3.58.0
     version: 3.58.0
   svelte-check:
-    specifier: ^3.2.0
-    version: 3.2.0(postcss@8.4.23)(svelte@3.58.0)
+    specifier: ^3.3.0
+    version: 3.3.0(postcss@8.4.23)(svelte@3.58.0)
   svelte-sequential-preprocessor:
     specifier: ^1.0.0
     version: 1.0.0
   sveltekit-superforms:
-    specifier: ^0.8.4
-    version: 0.8.4(@sveltejs/kit@1.15.10)(svelte@3.58.0)(zod@3.21.4)
+    specifier: ^0.8.5
+    version: 0.8.5(@sveltejs/kit@1.16.0)(svelte@3.58.0)(zod@3.21.4)
   tailwindcss:
     specifier: ^3.3.2
     version: 3.3.2
   three:
-    specifier: ^0.150.1
-    version: 0.150.1
+    specifier: ^0.152.2
+    version: 0.152.2
   tslib:
     specifier: ^2.5.0
     version: 2.5.0
@@ -430,7 +430,7 @@ packages:
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
 
-  /@rollup/plugin-commonjs@24.1.0(rollup@3.21.3):
+  /@rollup/plugin-commonjs@24.1.0(rollup@3.21.4):
     resolution: {integrity: sha512-eSL45hjhCWI0jCCXcNtLVqM5N1JlBGvlFfY0m6oOYnLCJ6N0qEXoZql4sY2MOUArzhH4SA/qBpTxvvZp2Sc+DQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -439,16 +439,16 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@3.21.3)
+      '@rollup/pluginutils': 5.0.2(rollup@3.21.4)
       commondir: 1.0.1
       estree-walker: 2.0.2
       glob: 8.1.0
       is-reference: 1.2.1
       magic-string: 0.27.0
-      rollup: 3.21.3
+      rollup: 3.21.4
     dev: false
 
-  /@rollup/plugin-json@6.0.0(rollup@3.21.3):
+  /@rollup/plugin-json@6.0.0(rollup@3.21.4):
     resolution: {integrity: sha512-i/4C5Jrdr1XUarRhVu27EEwjt4GObltD7c+MkCIpO2QIbojw8MUs+CCTqOphQi3Qtg1FLmYt+l+6YeoIf51J7w==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -457,11 +457,11 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@3.21.3)
-      rollup: 3.21.3
+      '@rollup/pluginutils': 5.0.2(rollup@3.21.4)
+      rollup: 3.21.4
     dev: false
 
-  /@rollup/plugin-node-resolve@15.0.2(rollup@3.21.3):
+  /@rollup/plugin-node-resolve@15.0.2(rollup@3.21.4):
     resolution: {integrity: sha512-Y35fRGUjC3FaurG722uhUuG8YHOJRJQbI6/CkbRkdPotSpDj9NtIN85z1zrcyDcCQIW4qp5mgG72U+gJ0TAFEg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -470,16 +470,16 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@3.21.3)
+      '@rollup/pluginutils': 5.0.2(rollup@3.21.4)
       '@types/resolve': 1.20.2
       deepmerge: 4.3.1
       is-builtin-module: 3.2.1
       is-module: 1.0.0
       resolve: 1.22.2
-      rollup: 3.21.3
+      rollup: 3.21.4
     dev: false
 
-  /@rollup/pluginutils@5.0.2(rollup@3.21.3):
+  /@rollup/pluginutils@5.0.2(rollup@3.21.4):
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -491,23 +491,23 @@ packages:
       '@types/estree': 1.0.1
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 3.21.3
+      rollup: 3.21.4
     dev: false
 
-  /@sveltejs/adapter-node@1.2.4(@sveltejs/kit@1.15.10):
+  /@sveltejs/adapter-node@1.2.4(@sveltejs/kit@1.16.0):
     resolution: {integrity: sha512-TNnhS+OKRZ9RKnC+ho5mlE2FJquI61i0v7yOXxBUSU3LAoYH2kwVVL8P8ecjefmZ8BOfM1V54pBnDODBU5CEaA==}
     peerDependencies:
       '@sveltejs/kit': ^1.0.0
     dependencies:
-      '@rollup/plugin-commonjs': 24.1.0(rollup@3.21.3)
-      '@rollup/plugin-json': 6.0.0(rollup@3.21.3)
-      '@rollup/plugin-node-resolve': 15.0.2(rollup@3.21.3)
-      '@sveltejs/kit': 1.15.10(svelte@3.58.0)(vite@4.3.4)
-      rollup: 3.21.3
+      '@rollup/plugin-commonjs': 24.1.0(rollup@3.21.4)
+      '@rollup/plugin-json': 6.0.0(rollup@3.21.4)
+      '@rollup/plugin-node-resolve': 15.0.2(rollup@3.21.4)
+      '@sveltejs/kit': 1.16.0(svelte@3.58.0)(vite@4.3.4)
+      rollup: 3.21.4
     dev: false
 
-  /@sveltejs/kit@1.15.10(svelte@3.58.0)(vite@4.3.4):
-    resolution: {integrity: sha512-qRZxODfsixjgY+7OOxhAQB8viVaxjyDUz2lM6cE22kObzF5mNke81FIxB2wdaOX42LyfVwIYULZQSr7duxLZ7w==}
+  /@sveltejs/kit@1.16.0(svelte@3.58.0)(vite@4.3.4):
+    resolution: {integrity: sha512-uCCZuI5MVSAviQFYsts5VHSmvBUp2u/CPeWfwAYxbWZoPg8lsM24JGjLhCh0peQwQjIDXXVDVQI0jdvSGs91Lg==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     requiresBuild: true
@@ -551,14 +551,15 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@threlte/core@5.0.9:
-    resolution: {integrity: sha512-3u8SGLD/fzOh0sEf1MDa0FVpp7oLqdEUR8nvGEkWZvGDwKUlhe0XxSmXNzvAYwCSnNLsYYfwiAWy8wBrVkoRlg==}
+  /@threlte/core@6.0.0-next.6:
+    resolution: {integrity: sha512-sBb9ovzZImGmgGKFJREnRNHZae/EbkeTVJ4LijpecUlM6k5tVy8Sv6I3YM7GRkJtzNi1fIq9OaPqmcGzBIW16Q==}
     dev: true
 
-  /@threlte/extras@4.9.3(three@0.150.1):
-    resolution: {integrity: sha512-1XVa9a3C+EQE9vMCZopZ2oZGncDlk/Claz+voFCTZvUqJl0xpPWBQTPNM6V61nXu8k5t+JKSGam3TWygBnfxug==}
+  /@threlte/extras@5.0.0-next.11(three@0.152.2):
+    resolution: {integrity: sha512-i7m7PLXEl7KCu8XVrqUjST1Whii2G9EeR/2nwzht7WZSqwzVevb/avpyZ7Dr12Nse1ZURUMnLxRaB+oDFlpjYQ==}
     dependencies:
-      troika-three-text: 0.46.4(three@0.150.1)
+      lodash: 4.17.21
+      troika-three-text: 0.46.4(three@0.152.2)
     transitivePeerDependencies:
       - three
     dev: true
@@ -567,8 +568,12 @@ packages:
     resolution: {integrity: sha512-Eb3u3nAEBSFpadQvCdeZKy0xE4kgnlmxeTxnzTsmvUJt5ZEadbMg1+/LXn0oAYgFO72YQ62CJ7WI4hmoQSpOeA==}
     dev: true
 
-  /@threlte/rapier@0.5.0:
-    resolution: {integrity: sha512-+lZ24lPdKLyXZA4iQvRl8prpQF9ARRaETm1EtkRCZSZm8NjSNKcpD6Gk5hCsI0PQbzCavY2FOrSvCPUbBuQgTA==}
+  /@threlte/rapier@1.0.0-next.2:
+    resolution: {integrity: sha512-4jfpqDqS0xR7Qoovef0EzAD/qr+mWxe7VPcOgintdaOxMYflBkwaRtKXA6UDmWEY5PHz8c7jSSGW4RmAQADhNA==}
+    dev: true
+
+  /@tweenjs/tween.js@18.6.4:
+    resolution: {integrity: sha512-lB9lMjuqjtuJrx7/kOkqQBtllspPIN+96OvTCeJ2j5FEzinoAXTdAMFnDAQT1KVPRlnYfBrqxtqP66vDM40xxQ==}
     dev: true
 
   /@types/cookie@0.5.1:
@@ -608,9 +613,10 @@ packages:
     resolution: {integrity: sha512-9w+a7bR8PeB0dCT/HBULU2fMqf6BAzvKbxFboYhmDtDkKPiyXYbjoe2auwsXlEFI7CFNMF1dCv3dFH5Poy9R1w==}
     dev: true
 
-  /@types/three@0.150.0:
-    resolution: {integrity: sha512-AGhnz/pfV9lajfPMrzRyP/nySpZYfpoXdayGk0Tiwkzc6hsWOCkz/Q696Muxn9HV2EkQJ3u8g/dDt7jcP5Tecg==}
+  /@types/three@0.152.0:
+    resolution: {integrity: sha512-9QdaV5bfZEqeQi0xkXLdnoJt7lgYZbppdBAgJSWRicdtZoCYJ34nS2QkdeuzXt+UXExofk4OWqMzdX71HeDOVg==}
     dependencies:
+      '@tweenjs/tween.js': 18.6.4
       '@types/stats.js': 0.17.0
       '@types/webxr': 0.5.1
       fflate: 0.6.10
@@ -925,7 +931,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001482
-      electron-to-chromium: 1.4.380
+      electron-to-chromium: 1.4.383
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11(browserslist@4.21.5)
     dev: true
@@ -1132,8 +1138,8 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /electron-to-chromium@1.4.380:
-    resolution: {integrity: sha512-XKGdI4pWM78eLH2cbXJHiBnWUwFSzZM7XujsB6stDiGu9AeSqziedP6amNLpJzE3i0rLTcfAwdCTs5ecP5yeSg==}
+  /electron-to-chromium@1.4.383:
+    resolution: {integrity: sha512-BQyvFauIMzCJqILViJNs0kIBEAlx1bYLS5CRLyJtlun1KAnZlhNSgyfyWifPWagQ5s8KYPY6BpNHZsEMkxZAQQ==}
     dev: true
 
   /emoji-regex@8.0.0:
@@ -1791,6 +1797,10 @@ packages:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
 
+  /lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: true
+
   /log-update@4.0.0:
     resolution: {integrity: sha512-9fkkDevMefjg0mmzWFBW8YkFP91OrizzkW3diF7CpG+S2EYdy4+TVfGwz1zeF8x7hCx1ovSPTOE9Ngib74qqUg==}
     engines: {node: '>=10'}
@@ -2274,8 +2284,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rollup@3.21.3:
-    resolution: {integrity: sha512-VnPfEG51nIv2xPLnZaekkuN06q9ZbnyDcLkaBdJa/W7UddyhOfMP2yOPziYQfeY7k++fZM8FdQIummFN5y14kA==}
+  /rollup@3.21.4:
+    resolution: {integrity: sha512-N5LxpvDolOm9ueiCp4NfB80omMDqb45ShtsQw2+OT3f11uJ197dv703NZvznYHP6RWR85wfxanXurXKG3ux2GQ==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -2471,8 +2481,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  /svelte-check@3.2.0(postcss@8.4.23)(svelte@3.58.0):
-    resolution: {integrity: sha512-6ZnscN8dHEN5Eq5LgIzjj07W9nc9myyBH+diXsUAuiY/3rt0l65/LCIQYlIuoFEjp2F1NhXqZiJwV9omPj9tMw==}
+  /svelte-check@3.3.0(postcss@8.4.23)(svelte@3.58.0):
+    resolution: {integrity: sha512-wZtOvY8V2fjzCbS4dGjDp0Ebh6VyXg6A39s7TDc8wc0154yqWKu18Rd9Ad+GOs7sXst7dbTmjvOaexjwoqPM7A==}
     hasBin: true
     peerDependencies:
       svelte: ^3.55.0
@@ -2591,14 +2601,14 @@ packages:
     resolution: {integrity: sha512-brIBNNB76mXFmU/Kerm4wFnkskBbluBDCjx/8TcpYRb298Yh2dztS2kQ6bhtjMcvUhd5ynClfwpz5h2gnzdQ1A==}
     engines: {node: '>= 8'}
 
-  /sveltekit-superforms@0.8.4(@sveltejs/kit@1.15.10)(svelte@3.58.0)(zod@3.21.4):
-    resolution: {integrity: sha512-nmxIzo7FMh7YmImHbPj4NZc97WSqOuaQyI9ec/xCfx89yjKulC4JmhfX0po5LIIlyIpzGF8KH7oF/swXLFDIqA==}
+  /sveltekit-superforms@0.8.5(@sveltejs/kit@1.16.0)(svelte@3.58.0)(zod@3.21.4):
+    resolution: {integrity: sha512-6Nb3hXQmAJPLFeZyDSNbtGKX+R5LIkd5uDIAmqGeKrPqOIvdVvk7zyiP1L6IubhRLibhfE01ToUVKByKXDh6JQ==}
     peerDependencies:
       '@sveltejs/kit': 1.x
       svelte: 3.x
       zod: 3.x
     dependencies:
-      '@sveltejs/kit': 1.15.10(svelte@3.58.0)(vite@4.3.4)
+      '@sveltejs/kit': 1.16.0(svelte@3.58.0)(vite@4.3.4)
       svelte: 3.58.0
       zod: 3.21.4
     dev: true
@@ -2652,8 +2662,8 @@ packages:
       any-promise: 1.3.0
     dev: true
 
-  /three@0.150.1:
-    resolution: {integrity: sha512-5C1MqKUWaHYo13BX0Q64qcdwImgnnjSOFgBscOzAo8MYCzEtqfQqorEKMcajnA3FHy1yVlIe9AmaMQ0OQracNA==}
+  /three@0.152.2:
+    resolution: {integrity: sha512-Ff9zIpSfkkqcBcpdiFo2f35vA9ZucO+N8TNacJOqaEE6DrB0eufItVMib8bK8Pcju/ZNT6a7blE1GhTpkdsILw==}
     dev: true
 
   /through@2.3.8:
@@ -2677,24 +2687,24 @@ packages:
     resolution: {integrity: sha512-sf4i37nQ2LBx4m3wB74y+ubopq6W/dIzXg0FDGjsYnZHVa1Da8FH853wlL2gtUhg+xJXjfk3kUZS3BRoQeoQBQ==}
     engines: {node: '>=6'}
 
-  /troika-three-text@0.46.4(three@0.150.1):
+  /troika-three-text@0.46.4(three@0.152.2):
     resolution: {integrity: sha512-Qsv0HhUKTZgSmAJs5wvO7YlBoJSP9TGPLmrg+K9pbQq4lseQdcevbno/WI38bwJBZ/qS56hvfqEzY0zUEFzDIw==}
     peerDependencies:
       three: '>=0.103.0'
     dependencies:
       bidi-js: 1.0.2
-      three: 0.150.1
-      troika-three-utils: 0.46.0(three@0.150.1)
+      three: 0.152.2
+      troika-three-utils: 0.46.0(three@0.152.2)
       troika-worker-utils: 0.46.0
       webgl-sdf-generator: 1.1.1
     dev: true
 
-  /troika-three-utils@0.46.0(three@0.150.1):
+  /troika-three-utils@0.46.0(three@0.152.2):
     resolution: {integrity: sha512-llHyrXAcwzr0bpg80GxsIp73N7FuImm4WCrKDJkAqcAsWmE5pfP9+Qzw+oMWK1P/AdHQ79eOrOl9NjyW4aOw0w==}
     peerDependencies:
       three: '>=0.103.0'
     dependencies:
-      three: 0.150.1
+      three: 0.152.2
     dev: true
 
   /troika-worker-utils@0.46.0:
@@ -2805,7 +2815,7 @@ packages:
     dependencies:
       esbuild: 0.17.18
       postcss: 8.4.23
-      rollup: 3.21.3
+      rollup: 3.21.4
     optionalDependencies:
       fsevents: 2.3.2
 
