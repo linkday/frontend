@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { T, useRender, useThrelte } from "@threlte/core";
+	import { T, useFrame, useRender, useThrelte } from "@threlte/core";
 	import Bookmark from "./Bookmark.svelte";
 	import * as THREE from "three";
 	import { onMount } from "svelte";
@@ -14,6 +14,20 @@
 		SMAAEffect,
 		SMAAPreset,
 	} from "postprocessing";
+	import { env } from "$env/dynamic/public";
+	import Stats from "stats.js";
+
+	if (env.PUBLIC_ENV === "development") {
+		const stats = new Stats();
+		stats.showPanel(0);
+
+		document.body.appendChild(stats.dom);
+
+		useFrame(() => {
+			stats.begin();
+			stats.end();
+		});
+	}
 
 	const { scene, renderer, camera } = useThrelte();
 	scene.background = new THREE.Color(0x833cab);
