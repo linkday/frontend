@@ -42,8 +42,8 @@
 			new EffectPass(
 				camera,
 				new DepthOfFieldEffect(camera, {
-					focusDistance: 0.06,
-					focalLength: 0.04,
+					focusDistance: 0.075,
+					focalLength: 0.06,
 					bokehScale: 3,
 				}),
 			),
