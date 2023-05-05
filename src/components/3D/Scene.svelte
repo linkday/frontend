@@ -1,15 +1,39 @@
 <script lang="ts">
-	import { T, useThrelte } from "@threlte/core";
+	import { T, useRender, useThrelte } from "@threlte/core";
 	import Bookmark from "./Bookmark.svelte";
 	import * as THREE from "three";
 	import { onMount } from "svelte";
 	import { World } from "@threlte/rapier";
 	import { useGltf } from "@threlte/extras";
 	import { derived } from "svelte/store";
+	import { EffectComposer, EffectPass, RenderPass, DepthOfFieldEffect } from "postprocessing";
 
-	const { scene } = useThrelte();
+	const { scene, renderer, camera } = useThrelte();
 	scene.background = new THREE.Color(0x833cab);
 	scene.fog = new THREE.Fog(0x833cab, 0, 35);
+
+	const composer = new EffectComposer(renderer);
+
+	function setupEffectComposer(camera: THREE.Camera) {
+		composer.removeAllPasses();
+		composer.addPass(new RenderPass(scene, camera));
+		composer.addPass(
+			new EffectPass(
+				camera,
+				new DepthOfFieldEffect(camera, {
+					focusDistance: 0.075,
+					focalLength: 0.025,
+					bokehScale: 2.5,
+				}),
+			),
+		);
+	}
+
+	$: setupEffectComposer($camera);
+
+	useRender((_, delta) => {
+		composer.render(delta);
+	});
 
 	const gltf = useGltf("/3D/bookmark.gltf", {
 		useDraco: true,
@@ -24,14 +48,15 @@
 		position: [number, number, number];
 		rotation: [number, number, number];
 	}[] = [];
+
 	onMount(() => {
-		Array.from(Array(150).keys()).forEach((index) => {
+		Array.from(Array(100).keys()).forEach((index) => {
 			bookmarkMetadata.push({
 				id: index,
 				position: [
-					THREE.MathUtils.randFloatSpread(15),
-					THREE.MathUtils.randFloatSpread(15),
-					-index * 0.12 - 0.02,
+					THREE.MathUtils.randFloatSpread(12),
+					THREE.MathUtils.randFloatSpread(18),
+					-index * 0.1 - 0.05,
 				],
 				rotation: [
 					THREE.MathUtils.randFloatSpread(2 * Math.PI),
@@ -46,7 +71,7 @@
 <!-- <Background path={"/3D/background.png"} /> -->
 <World gravity={[0, 0, 0]}>
 	<!-- <Debug /> -->
-	<T.PerspectiveCamera makeDefault near={0.01} far={110} fov={24} />
+	<T.PerspectiveCamera makeDefault near={0.01} far={110} fov={24} focus={1} />
 
 	<T.DirectionalLight castShadow position={[3, 10, 10]} />
 	<T.DirectionalLight position={[-3, 10, -10]} intensity={0.2} />

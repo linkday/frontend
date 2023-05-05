@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type * as THREE from "three";
+	import * as THREE from "three";
 	import { useFrame, T } from "@threlte/core";
 	import { AutoColliders, RigidBody } from "@threlte/rapier";
 	import type { RigidBody as RapierRigidBody } from "@dimforge/rapier3d-compat";
@@ -22,28 +22,39 @@
 				},
 				true,
 			);
+
+			const quaternion = new THREE.Quaternion();
+			quaternion.setFromEuler(new THREE.Euler(rotation[0], rotation[1], rotation[2], "XYZ"));
+
+			rigidBody.setRotation(
+				{
+					x: quaternion.x,
+					y: quaternion.y,
+					z: quaternion.z,
+					w: quaternion.w,
+				},
+				true,
+			);
 		}
 	}
 
 	useFrame(() => {
 		if (!rigidBody) return;
 
-		if (!rigidBody.isMoving()) {
-			let y = rigidBody.translation().y + 0.002;
+		let y = rigidBody.translation().y + 0.002;
 
-			if (y > 15) {
-				y = -15;
-			}
-
-			rigidBody.setTranslation(
-				{
-					x: rigidBody.translation().x,
-					y: y,
-					z: rigidBody.translation().z,
-				},
-				true,
-			);
+		if (y > 8) {
+			y = -8;
 		}
+
+		rigidBody.setTranslation(
+			{
+				x: rigidBody.translation().x,
+				y: y,
+				z: rigidBody.translation().z,
+			},
+			true,
+		);
 	});
 </script>
 
@@ -53,12 +64,10 @@
 			<T
 				castShadow
 				receiveShadow
-				{position}
-				{rotation}
 				is={object}
-				scale={2}
+				scale={1.5}
 				on:click|once={() => {
-					rigidBody.applyImpulse({ x: 0, y: 0, z: -0.5 }, true);
+					rigidBody.applyImpulse({ x: 0, y: 0, z: -0.25 }, true);
 				}}
 			/>
 		</AutoColliders>
