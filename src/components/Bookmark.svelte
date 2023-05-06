@@ -33,7 +33,9 @@
 				</a>
 				<div class="flex flex-row gap-2 flex-wrap mt-1 !md:hidden">
 					{#each bookmark.tags as tag (tag.id)}
-						<div class="px-2 py-1 text-xs text-gray-400 bg-gray-100 rounded-md whitespace-nowrap">
+						<div
+							class="px-2 py-1 text-xs text-gray-400 bg-gray-100 rounded-md whitespace-nowrap overflow-y-hidden"
+						>
 							# {tag.name}
 						</div>
 					{/each}

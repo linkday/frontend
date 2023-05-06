@@ -27,7 +27,6 @@
 	$: $form.tag_ids = selectedTags.map((tag) => tag.id);
 
 	async function addTag(tag: Tag) {
-		data.tags.data = [...data.tags.data, tag];
 		selectedTags = [...selectedTags, tag];
 		tagSerachString = "";
 
@@ -48,6 +47,7 @@
 				withCredentials: true,
 			});
 			if (newTag.data) {
+				data.tags.data = [...data.tags.data, newTag.data];
 				addTag(newTag.data);
 			}
 		} catch (err) {
@@ -161,13 +161,17 @@
 							/>
 
 							{#if isSelectTagPanelOpen}
-								<div class="absolute" bind:this={selectTagPanel} on:keydown={onTagKeyDown}>
+								<div
+									class="absolute md:max-w-[35%] max-w-[calc(100vw-4rem)]"
+									bind:this={selectTagPanel}
+									on:keydown={onTagKeyDown}
+								>
 									<div
 										class="bg-white border border-gray-300 rounded-lg shadow-md p-2 flex flex-col"
 									>
 										{#if !filteredTags.map((tag) => tag.name).includes(tagSerachString)}
 											<button
-												class="flex flex-col gap-1 p-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md"
+												class="flex flex-col gap-1 p-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md overflow-y-hidden"
 												on:click={createTag}
 												bind:this={tagButtons[0]}
 											>
@@ -178,7 +182,7 @@
 														No tags found
 													{/if}
 												</div>
-												<div class="text-xs text-gray-400">
+												<div class="text-xs text-gray-400 text-left">
 													Create new tag:
 													<span class="text-black font-bold">
 														{tagSerachString}
@@ -186,14 +190,14 @@
 												</div>
 											</button>
 										{/if}
-										{#each filteredTags as tag, index (tag.id)}
+										{#each filteredTags as tag, index (index)}
 											<button
-												class="flex flex-col gap-1 p-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+												class="flex flex-col gap-1 p-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md disabled:opacity-50 disabled:cursor-not-allowed overflow-y-hidden"
 												on:click={() => addTag(tag)}
 												disabled={selectedTagNames.includes(tag.name)}
 												bind:this={tagButtons[index + 1]}
 											>
-												<div class="text-sm font-medium">{tag.name}</div>
+												<div class="text-sm font-medium text-left">{tag.name}</div>
 												<div class="text-xs text-gray-400">Click to add</div>
 											</button>
 										{/each}
@@ -204,7 +208,7 @@
 							<div class="flex flex-row flex-wrap gap-2 mt-2 justify-start items-start">
 								{#each selectedTagNames as tagName (tagName)}
 									<button
-										class="px-3 py-2 text-sm text-gray-400 bg-gray-100 rounded-md whitespace-nowrap disabled:opacity-30 disabled:cursor-not-allowed h-min"
+										class="px-3 py-2 text-sm text-gray-400 bg-gray-100 rounded-md whitespace-nowrap disabled:opacity-30 disabled:cursor-not-allowed h-min overflow-y-hidden"
 										on:click={async () => {
 											selectedTags = selectedTags.filter((tag) => tag.name !== tagName);
 

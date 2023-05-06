@@ -92,7 +92,7 @@
 						<div class="flex flex-row gap-2 flex-wrap">
 							{#each allTags as tag (tag.id)}
 								<button
-									class="px-3 py-2 text-sm text-gray-400 bg-gray-100 rounded-md whitespace-nowrap disabled:opacity-30 disabled:cursor-not-allowed"
+									class="px-3 py-2 text-sm text-gray-400 bg-gray-100 rounded-md whitespace-nowrap disabled:opacity-30 disabled:cursor-not-allowed overflow-y-hidden"
 									class:text-white={filterTags.includes(tag.name)}
 									class:bg-main={filterTags.includes(tag.name)}
 									disabled={!possibleTagNames.includes(tag.name) && possibleTagNames.length !== 0}
