@@ -36,20 +36,20 @@
 	const composer = new EffectComposer(renderer);
 
 	function setupEffectComposer(camera: THREE.Camera) {
+		if (window.innerWidth < 768) return;
+
 		composer.removeAllPasses();
 		composer.addPass(new RenderPass(scene, camera));
 		composer.addPass(
 			new EffectPass(
 				camera,
 				new DepthOfFieldEffect(camera, {
-					focusDistance: 0.075,
-					focalLength: 0.06,
+					focusDistance: 0.06,
+					focalLength: 0.05,
 					bokehScale: 3,
 				}),
 			),
 		);
-
-		if (window.innerWidth < 768) return;
 
 		composer.addPass(
 			new EffectPass(
@@ -61,11 +61,13 @@
 		);
 	}
 
-	$: setupEffectComposer($camera);
+	if (window.innerWidth >= 768) {
+		useRender((_, delta) => {
+			composer.render(delta);
+		});
+	}
 
-	useRender((_, delta) => {
-		composer.render(delta);
-	});
+	$: setupEffectComposer($camera);
 
 	const gltf = useGltf("/3D/bookmark.gltf", {
 		useDraco: true,
@@ -89,14 +91,14 @@
 			bookmarkMetadata.push({
 				id: index,
 				position: [
-					THREE.MathUtils.randFloatSpread(innerWidth / 240),
-					THREE.MathUtils.randFloatSpread(innerHeight / 120),
+					Math.random() * (innerHeight / 240 - -(innerHeight / 240)) - innerHeight / 240,
+					Math.random() * (innerHeight / 120 - -(innerHeight / 120)) - innerHeight / 120,
 					-index * 0.075 - 2880 / innerWidth,
 				],
 				rotation: [
-					THREE.MathUtils.randFloatSpread(2 * Math.PI),
-					THREE.MathUtils.randFloatSpread(2 * Math.PI),
-					THREE.MathUtils.randFloatSpread(2 * Math.PI),
+					Math.random() * 2 * Math.PI,
+					Math.random() * 2 * Math.PI,
+					Math.random() * 2 * Math.PI,
 				],
 			});
 		});

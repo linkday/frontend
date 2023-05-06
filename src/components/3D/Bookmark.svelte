@@ -35,6 +35,8 @@
 				},
 				true,
 			);
+
+			rigidBody.setLinvel({ x: 0, y: 0.25, z: 0 }, true);
 		}
 	}
 
@@ -47,20 +49,16 @@
 			rigidBody.setLinvel({ x: 0, y: 0.25, z: 0 }, true);
 		}
 
-		let y = rigidBody.translation().y;
-
-		if (y > innerHeight / 180) {
-			y = -(innerHeight / 180);
+		if (rigidBody.translation().y > innerHeight / 150) {
+			rigidBody.setTranslation(
+				{
+					x: rigidBody.translation().x,
+					y: -(innerHeight / 150),
+					z: rigidBody.translation().z,
+				},
+				true,
+			);
 		}
-
-		rigidBody.setTranslation(
-			{
-				x: rigidBody.translation().x,
-				y: y,
-				z: rigidBody.translation().z,
-			},
-			true,
-		);
 	});
 </script>
 
