@@ -38,6 +38,8 @@
 		}
 	}
 
+	let innerHeight: number;
+
 	useFrame(() => {
 		if (!rigidBody) return;
 
@@ -47,8 +49,8 @@
 
 		let y = rigidBody.translation().y;
 
-		if (y > 8) {
-			y = -8;
+		if (y > innerHeight / 180) {
+			y = -(innerHeight / 180);
 		}
 
 		rigidBody.setTranslation(
@@ -61,6 +63,8 @@
 		);
 	});
 </script>
+
+<svelte:window bind:innerHeight />
 
 {#if object}
 	<RigidBody bind:rigidBody>

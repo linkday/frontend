@@ -48,6 +48,9 @@
 				}),
 			),
 		);
+
+		if (window.innerWidth < 768) return;
+
 		composer.addPass(
 			new EffectPass(
 				camera,
@@ -78,14 +81,17 @@
 		rotation: [number, number, number];
 	}[] = [];
 
+	let innerWidth: number;
+	let innerHeight: number;
+
 	onMount(() => {
-		Array.from(Array(100).keys()).forEach((index) => {
+		Array.from(Array(Math.ceil(innerWidth / 24)).keys()).forEach((index) => {
 			bookmarkMetadata.push({
 				id: index,
 				position: [
-					THREE.MathUtils.randFloatSpread(12),
-					THREE.MathUtils.randFloatSpread(18),
-					-index * 0.1 - 0.05,
+					THREE.MathUtils.randFloatSpread(innerWidth / 240),
+					THREE.MathUtils.randFloatSpread(innerHeight / 120),
+					-index * 0.075 - 2880 / innerWidth,
 				],
 				rotation: [
 					THREE.MathUtils.randFloatSpread(2 * Math.PI),
@@ -97,10 +103,12 @@
 	});
 </script>
 
+<svelte:window bind:innerWidth bind:innerHeight />
+
 <!-- <Background path={"/3D/background.png"} /> -->
 <World gravity={[0, 0, 0]}>
 	<!-- <Debug /> -->
-	<T.PerspectiveCamera makeDefault near={0.01} far={110} fov={24} focus={1} />
+	<T.PerspectiveCamera makeDefault near={0.005} far={110} fov={24} />
 
 	<T.DirectionalLight castShadow position={[3, 10, 10]} />
 	<T.DirectionalLight position={[-3, 10, -10]} intensity={0.2} />
