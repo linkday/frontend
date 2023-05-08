@@ -36,7 +36,11 @@
 				true,
 			);
 
-			rigidBody.setLinvel({ x: 0, y: 0.25, z: 0 }, true);
+			rigidBody.setLinvel({ x: 0, y: 1.5, z: 0 }, true);
+
+			setTimeout(() => {
+				rigidBody.setLinvel({ x: 0, y: 0.2, z: 0 }, true);
+			}, 3000);
 		}
 	}
 
@@ -73,7 +77,7 @@
 				is={object}
 				scale={1.5}
 				on:click|once={() => {
-					rigidBody.applyImpulse({ x: 0, y: 0, z: -0.25 }, true);
+					rigidBody.applyImpulse({ x: 0, y: 0, z: -0.2 }, true);
 				}}
 			/>
 		</AutoColliders>

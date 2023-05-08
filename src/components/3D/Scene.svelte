@@ -16,6 +16,9 @@
 	} from "postprocessing";
 	import { env } from "$env/dynamic/public";
 	import Stats from "stats.js";
+	import { createEventDispatcher } from "svelte";
+
+	const dispatch = createEventDispatcher();
 
 	if (env.PUBLIC_ENV === "development") {
 		const stats = new Stats();
@@ -76,6 +79,10 @@
 		if (!gltf || !gltf.nodes["Scene"]) return;
 		return gltf.nodes["Scene"] as THREE.Mesh;
 	});
+
+	$: if ($gltf) {
+		dispatch("gltf-loaded");
+	}
 
 	let bookmarkMetadata: {
 		id: number;
