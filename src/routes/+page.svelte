@@ -49,7 +49,12 @@
 			The one you only need. Focus on valuable contents.
 		</div>
 	</div>
-	<Canvas>
+	<Canvas
+		rendererParameters={{
+			powerPreference: "high-performance",
+			antialias: true,
+		}}
+	>
 		<Scene on:gltf-loaded={onGltfLoaded} />
 	</Canvas>
 </div>
