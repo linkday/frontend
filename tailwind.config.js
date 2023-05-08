@@ -13,6 +13,7 @@ export default {
 			},
 			fontFamily: {
 				spectrul: ["Spectral", "serif"],
+				title: ["Amarante", "serif"],
 			},
 		},
 	},

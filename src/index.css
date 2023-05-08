@@ -4,6 +4,26 @@
 
 * {
 	font-family: "Montserrat", sans-serif;
-	/* scrollbar-gutter: stable; */
 	scroll-behavior: smooth;
 }
+
+/* old but gold version of scrollbar-gutter: stalbe */
+/* //////////////////////////////////////////////// */
+html {
+	overflow-y: scroll;
+}
+
+:root {
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+:root body {
+	position: absolute;
+}
+
+body {
+	width: 100vw;
+	overflow: hidden;
+}
+/* //////////////////////////////////////////////// */
