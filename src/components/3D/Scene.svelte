@@ -47,9 +47,9 @@
 			new EffectPass(
 				camera,
 				new DepthOfFieldEffect(camera, {
-					focusDistance: 0.06,
-					focalLength: 0.05,
-					bokehScale: 3,
+					focusDistance: 0.07,
+					focalLength: 0.065,
+					bokehScale: 2,
 				}),
 			),
 		);
@@ -94,18 +94,18 @@
 	let innerHeight: number;
 
 	onMount(() => {
-		Array.from(Array(Math.ceil(innerWidth / 24)).keys()).forEach((index) => {
+		Array.from(Array(Math.ceil(innerWidth / 128) + 20).keys()).forEach((index) => {
 			bookmarkMetadata.push({
 				id: index,
 				position: [
-					Math.random() * (innerHeight / 240 - -(innerHeight / 240)) - innerHeight / 240,
+					Math.random() * (innerWidth / 960 - -(innerWidth / 960)) - innerWidth / 960,
 					Math.random() * (innerHeight / 120 - -(innerHeight / 120)) - innerHeight / 120,
-					-index * 0.075 - 2880 / innerWidth,
+					-index * 0.2 - 2,
 				],
 				rotation: [
-					Math.random() * 2 * Math.PI,
-					Math.random() * 2 * Math.PI,
-					Math.random() * 2 * Math.PI,
+					Math.random() * 0.5 * Math.PI,
+					Math.random() * 0.5 * Math.PI,
+					Math.random() * 0.5 * Math.PI,
 				],
 			});
 		});
@@ -117,7 +117,7 @@
 <!-- <Background path={"/3D/background.png"} /> -->
 <World gravity={[0, 0, 0]}>
 	<!-- <Debug /> -->
-	<T.PerspectiveCamera makeDefault near={0.005} far={110} fov={24} />
+	<T.PerspectiveCamera makeDefault near={0.005} far={110} fov={20} position={[-0.5, 0, 0]} />
 
 	<T.DirectionalLight castShadow position={[3, 10, 10]} />
 	<T.DirectionalLight position={[-3, 10, -10]} intensity={0.2} />

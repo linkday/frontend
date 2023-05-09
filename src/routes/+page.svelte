@@ -38,7 +38,9 @@
 	style="opacity: {$canvasOpacity}"
 	bind:this={canvasDiv}
 >
-	<div class="absolute w-fit h-fit flex flex-col items-center pointer-events-none !md:scale-75">
+	<div
+		class="absolute w-fit h-fit flex flex-col items-center pointer-events-none xl:scale-100 md:scale-90 scale-75"
+	>
 		<div
 			class="font-title text-white text-[10rem] scale-y-[5] scale-x-[0.75] select-none leading-[4]"
 			style="letter-spacing: {$titleLetterSpacing}rem; opacity: {$titleOpacity}"
