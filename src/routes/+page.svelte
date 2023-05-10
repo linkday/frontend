@@ -5,6 +5,11 @@
 	import { quintIn, quintInOut } from "svelte/easing";
 
 	let canvasDiv: HTMLDivElement;
+	let titleScale = 0;
+	$: if (canvasDiv) {
+		const { width, height } = canvasDiv.getBoundingClientRect();
+		titleScale = Math.min(width, height) / 840;
+	}
 
 	const canvasOpacity = tweened(0, {
 		duration: 3000,
@@ -39,7 +44,8 @@
 	bind:this={canvasDiv}
 >
 	<div
-		class="absolute w-fit h-fit flex flex-col items-center pointer-events-none xl:scale-100 md:scale-90 scale-75"
+		class="absolute w-fit h-fit flex flex-col items-center pointer-events-none"
+		style="scale: {titleScale};"
 	>
 		<div
 			class="font-title text-white text-[10rem] scale-y-[5] scale-x-[0.75] select-none leading-[4]"
