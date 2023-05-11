@@ -46,24 +46,30 @@
 
 	let innerHeight: number;
 
-	useFrame(() => {
-		if (!rigidBody) return;
+	useFrame(
+		() => {
+			if (!rigidBody) return;
 
-		if (!rigidBody.isMoving()) {
-			rigidBody.setLinvel({ x: 0, y: 0.25, z: 0 }, true);
-		}
+			if (!rigidBody.isMoving()) {
+				rigidBody.setLinvel({ x: 0, y: 0.25, z: 0 }, true);
+			}
 
-		if (rigidBody.translation().y > innerHeight / 150) {
-			rigidBody.setTranslation(
-				{
-					x: rigidBody.translation().x,
-					y: -(innerHeight / 150),
-					z: rigidBody.translation().z,
-				},
-				true,
-			);
-		}
-	});
+			if (rigidBody.translation().y > innerHeight / 150) {
+				rigidBody.setTranslation(
+					{
+						x: rigidBody.translation().x,
+						y: -(innerHeight / 150),
+						z: rigidBody.translation().z,
+					},
+					true,
+				);
+			}
+		},
+		{
+			// prevent unnecessary invalidation
+			invalidate: false,
+		},
+	);
 </script>
 
 <svelte:window bind:innerHeight />

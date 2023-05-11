@@ -59,8 +59,7 @@
 	</div>
 	<Canvas
 		rendererParameters={{
-			powerPreference: "high-performance",
-			antialias: true,
+			powerPreference: "low-power",
 		}}
 	>
 		<Scene on:gltf-loaded={onGltfLoaded} />
