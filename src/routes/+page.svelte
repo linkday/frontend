@@ -3,6 +3,7 @@
 	import Scene from "../components/3D/Scene.svelte";
 	import { tweened } from "svelte/motion";
 	import { quintIn, quintInOut } from "svelte/easing";
+	import { getGPUTier } from "detect-gpu";
 
 	let canvasDiv: HTMLDivElement;
 	let titleScale = 0;
@@ -31,6 +32,20 @@
 		titleLetterSpacing.set(0);
 		titleOpacity.set(1);
 	}
+
+	let tierInfo: { isMobile: boolean; tier: number } | undefined = undefined;
+	getGPUTier().then((data) => {
+		console.log(data);
+		const { isMobile, tier } = data;
+		if (isMobile || tier) {
+			tierInfo = {
+				isMobile: isMobile ?? true,
+				tier,
+			};
+		}
+	});
+
+	$: highPerf = tierInfo ? tierInfo.tier >= 3 && !tierInfo.isMobile : undefined;
 </script>
 
 <svelte:head>
@@ -57,14 +72,17 @@
 			The one you only need. Focus on valuable contents.
 		</div>
 	</div>
-	<Canvas
-		rendererParameters={{
-			powerPreference: "high-performance",
-			antialias: false,
-			stencil: false,
-			depth: false,
-		}}
-	>
-		<Scene on:gltf-loaded={onGltfLoaded} />
-	</Canvas>
+	{#if tierInfo}
+		<Canvas
+			rendererParameters={{
+				powerPreference: "high-performance",
+				antialias: !highPerf,
+				stencil: !highPerf,
+				depth: !highPerf,
+			}}
+			frameloop="demand"
+		>
+			<Scene {highPerf} on:gltf-loaded={onGltfLoaded} />
+		</Canvas>
+	{/if}
 </div>

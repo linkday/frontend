@@ -18,6 +18,9 @@
 	import Stats from "stats.js";
 	import { createEventDispatcher } from "svelte";
 
+	export let highPerf = false;
+	$: console.log("high-performance:", highPerf);
+
 	const dispatch = createEventDispatcher();
 
 	if (env.PUBLIC_ENV === "development") {
@@ -26,10 +29,15 @@
 
 		document.body.appendChild(stats.dom);
 
-		useFrame(() => {
-			stats.begin();
-			stats.end();
-		});
+		useFrame(
+			() => {
+				stats.begin();
+				stats.end();
+			},
+			{
+				invalidate: false,
+			},
+		);
 	}
 
 	const { scene, renderer, camera } = useThrelte();
@@ -39,8 +47,10 @@
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 	}
 
+	const composer = new EffectComposer(renderer);
+
 	function setupEffectComposer(camera: THREE.Camera) {
-		const composer = new EffectComposer(renderer);
+		if (!highPerf) return;
 
 		composer.removeAllPasses();
 		composer.addPass(new RenderPass(scene, camera));
@@ -50,25 +60,23 @@
 				new DepthOfFieldEffect(camera, {
 					focusDistance: 0.07,
 					focalLength: 0.065,
-					bokehScale: 2,
+					bokehScale: 3,
+					resolutionScale: 0.5,
 				}),
-			),
-		);
-		composer.addPass(
-			new EffectPass(
-				camera,
 				new SMAAEffect({
-					preset: SMAAPreset.LOW,
+					preset: SMAAPreset.ULTRA,
 				}),
 			),
 		);
+	}
 
+	$: setupEffectComposer($camera);
+
+	if (highPerf) {
 		useRender((_, delta) => {
 			composer.render(delta);
 		});
 	}
-
-	$: setupEffectComposer($camera);
 
 	const gltf = useGltf("/3D/bookmark.glb", {
 		useMeshopt: true,
