@@ -39,10 +39,8 @@
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 	}
 
-	const composer = new EffectComposer(renderer);
-
 	function setupEffectComposer(camera: THREE.Camera) {
-		if (window.innerWidth < 768) return;
+		const composer = new EffectComposer(renderer);
 
 		composer.removeAllPasses();
 		composer.addPass(new RenderPass(scene, camera));
@@ -56,18 +54,15 @@
 				}),
 			),
 		);
-
 		composer.addPass(
 			new EffectPass(
 				camera,
 				new SMAAEffect({
-					preset: SMAAPreset.ULTRA,
+					preset: SMAAPreset.LOW,
 				}),
 			),
 		);
-	}
 
-	if (window.innerWidth >= 768) {
 		useRender((_, delta) => {
 			composer.render(delta);
 		});
