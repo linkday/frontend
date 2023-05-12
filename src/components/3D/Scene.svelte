@@ -35,6 +35,9 @@
 	const { scene, renderer, camera } = useThrelte();
 	scene.background = new THREE.Color(0x833cab);
 	scene.fog = new THREE.Fog(0x833cab, 0, 35);
+	$: if (renderer) {
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+	}
 
 	const composer = new EffectComposer(renderer);
 
@@ -72,8 +75,8 @@
 
 	$: setupEffectComposer($camera);
 
-	const gltf = useGltf("/3D/bookmark.gltf", {
-		useDraco: true,
+	const gltf = useGltf("/3D/bookmark.glb", {
+		useMeshopt: true,
 	});
 	const bookmark = derived(gltf, (gltf) => {
 		if (!gltf || !gltf.nodes["Scene"]) return;
@@ -114,7 +117,6 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<!-- <Background path={"/3D/background.png"} /> -->
 <World gravity={[0, 0, 0]}>
 	<!-- <Debug /> -->
 	<T.PerspectiveCamera makeDefault near={0.005} far={110} fov={20} position={[-0.5, 0, 0]} />
