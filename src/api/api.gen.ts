@@ -56,6 +56,13 @@ const BookmarkPayload = z.object({
 	tag_ids: z.array(z.string()),
 });
 const BookmarkResponse = z.object({ data: Bookmark });
+const Feed = z.object({
+	url: z.string().url(),
+	title: z.string(),
+	description: z.string(),
+	thumbnail_url: z.string().url().optional(),
+});
+const FeedsResponse = z.object({ data: z.array(Feed) });
 
 export type User = z.infer<typeof User>;
 export type UserResponse = z.infer<typeof UserResponse>;
@@ -73,6 +80,8 @@ export type TagPayload = z.infer<typeof TagPayload>;
 export type TagResponse = z.infer<typeof TagResponse>;
 export type BookmarkPayload = z.infer<typeof BookmarkPayload>;
 export type BookmarkResponse = z.infer<typeof BookmarkResponse>;
+export type Feed = z.infer<typeof Feed>;
+export type FeedsResponse = z.infer<typeof FeedsResponse>;
 
 export const schemas = {
 	User,
@@ -91,6 +100,8 @@ export const schemas = {
 	TagResponse,
 	BookmarkPayload,
 	BookmarkResponse,
+	Feed,
+	FeedsResponse,
 };
 
 export const endpoints = makeApi([
@@ -226,6 +237,20 @@ export const endpoints = makeApi([
 			{
 				status: 404,
 				description: "The bookmark is not found",
+				schema: z.void(),
+			},
+		],
+	},
+	{
+		method: "get",
+		path: "/api/v1/feeds",
+		alias: "getFeeds",
+		requestFormat: "json",
+		response: FeedsResponse,
+		errors: [
+			{
+				status: 401,
+				description: "The operation is unauthenticated",
 				schema: z.void(),
 			},
 		],
