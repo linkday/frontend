@@ -7,7 +7,7 @@
 <div class="text-left self-start md:mb-6">
 	<div class="flex md:flex-col flex-row md:gap-2 gap-8">
 		<button
-			class="md:h-64 lg:h-full md:aspect-auto aspect-square md:self-auto self-center h-[125px]"
+			class="md:h-64 md:aspect-auto aspect-square md:self-auto self-center h-[125px]"
 			on:click={() => {
 				window.open(bookmark.url, "_blank");
 			}}
