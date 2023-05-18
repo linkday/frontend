@@ -51,10 +51,7 @@ const GroupResponse = z.object({ data: Group.nullable() });
 const TagsResponse = z.object({ data: z.array(Tag) });
 const TagPayload = z.object({ name: z.string() });
 const TagResponse = z.object({ data: Tag.nullable() });
-const BookmarkPayload = z.object({
-	url: z.string().url(),
-	tag_ids: z.array(z.string()),
-});
+const BookmarkPayload = z.object({ url: z.string().url(), tag_ids: z.array(z.string()) });
 const BookmarkResponse = z.object({ data: Bookmark });
 const Feed = z.object({
 	url: z.string().url(),
@@ -62,7 +59,7 @@ const Feed = z.object({
 	description: z.string(),
 	thumbnail_url: z.string().url().optional(),
 });
-const FeedsResponse = z.object({ data: z.array(Feed) });
+const FeedsResponse = z.object({ data: z.record(z.array(Feed)) });
 
 export type User = z.infer<typeof User>;
 export type UserResponse = z.infer<typeof UserResponse>;
@@ -246,7 +243,7 @@ export const endpoints = makeApi([
 		path: "/api/v1/feeds",
 		alias: "getFeeds",
 		requestFormat: "json",
-		response: FeedsResponse,
+		response: z.object({ data: z.record(z.array(Feed)) }),
 		errors: [
 			{
 				status: 401,

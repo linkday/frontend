@@ -7,7 +7,7 @@
 <div class="text-left self-start md:mb-6">
 	<div class="flex md:flex-col flex-row md:gap-2 gap-8">
 		<button
-			class="md:h-64 h-full !md:aspect-square !md:self-center !lg:h-[125px]"
+			class="md:h-64 lg:h-full md:aspect-auto aspect-square md:self-auto self-center h-[125px]"
 			on:click={() => {
 				window.open(bookmark.url, "_blank");
 			}}
@@ -31,7 +31,7 @@
 				>
 					{bookmark.title}
 				</a>
-				<div class="flex flex-row gap-2 flex-wrap mt-1 !md:hidden">
+				<div class="md:flex flex-row gap-2 flex-wrap mt-1 hidden">
 					{#each bookmark.tags as tag (tag.id)}
 						<div
 							class="px-2 py-1 text-xs text-gray-400 bg-gray-100 rounded-md whitespace-nowrap overflow-y-hidden"
@@ -41,7 +41,7 @@
 					{/each}
 				</div>
 				<a
-					class="text-sm text-gray-500 line-clamp-3 mt-1 !md:hidden"
+					class="text-sm text-gray-500 line-clamp-3 mt-1 md:block hidden"
 					href={bookmark.url}
 					target="_blank"
 				>
