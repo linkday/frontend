@@ -1,6 +1,7 @@
 import { redirect } from "@sveltejs/kit";
 import { api } from "../../api";
-import type { BookmarksResponse } from "../../api/api.gen";
+import { schemas, type BookmarksResponse } from "../../api/api.gen";
+import { ZodiosError } from "@zodios/core";
 
 export const load = async ({ locals, cookies }) => {
 	if (!cookies.get("LINKDAY")) {
@@ -21,6 +22,13 @@ export const load = async ({ locals, cookies }) => {
 			},
 		});
 	} catch (err) {
+		if (err instanceof ZodiosError) {
+			bookmarks = err.data as BookmarksResponse;
+			bookmarks.data = bookmarks.data.filter(
+				(bookmark) => schemas.Bookmark.safeParse(bookmark).success,
+			);
+		}
+
 		console.log(err);
 	}
 
