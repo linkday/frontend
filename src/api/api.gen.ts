@@ -33,6 +33,7 @@ const Bookmark = z.object({
 	thumbnail_url: z.string().url().optional(),
 	user_id: z.string().uuid(),
 	tags: z.array(Tag),
+	incognito: z.boolean(),
 	created_at: z.string().datetime(),
 	deleted_at: z.string().datetime().nullish(),
 });
@@ -51,13 +52,19 @@ const GroupResponse = z.object({ data: Group.nullable() });
 const TagsResponse = z.object({ data: z.array(Tag) });
 const TagPayload = z.object({ name: z.string() });
 const TagResponse = z.object({ data: Tag.nullable() });
-const BookmarkPayload = z.object({ url: z.string().url(), tag_ids: z.array(z.string()) });
+const BookmarkPayload = z.object({
+	url: z.string().url(),
+	tag_ids: z.array(z.string()),
+	incognito: z.boolean(),
+});
 const BookmarkResponse = z.object({ data: Bookmark });
 const Feed = z.object({
 	url: z.string().url(),
 	title: z.string(),
 	description: z.string(),
 	thumbnail_url: z.string().url().optional(),
+	similarity: z.number(),
+	recommendation: z.number(),
 });
 const FeedsResponse = z.object({ data: z.record(z.array(Feed)) });
 

@@ -25,7 +25,11 @@
 	<nav class="flex justify-between items-center">
 		<div class="z-30 bg-white absolute left-0 md:w-full w-screen pb-[2px] flex justify-center">
 			<div class="h-20 grow max-w-screen-2xl mx-8 flex justify-between items-center">
-				<div class="font-spectrul font-bold text-2xl">LINKDAY</div>
+				<a class="flex items-center" href="/">
+					<div class="font-spectrul font-bold text-2xl">L</div>
+					<img src="/logo.svg" alt="logo" class="w-6 h-6 -mx-1" />
+					<div class="font-spectrul font-bold text-2xl">NKDAY</div>
+				</a>
 				{#if data.user}
 					<div class="duration-500 static hidden left-0 md:flex items-center">
 						<ul class="flex flex-row items-center gap-[4vw]">
