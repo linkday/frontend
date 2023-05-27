@@ -66,7 +66,7 @@ const Feed = z.object({
 	similarity: z.number(),
 	recommendation: z.number(),
 });
-const FeedsResponse = z.object({ data: z.record(z.array(Feed)) });
+const FeedsResponse = z.object({ data: z.array(Feed) });
 
 export type User = z.infer<typeof User>;
 export type UserResponse = z.infer<typeof UserResponse>;
@@ -250,7 +250,7 @@ export const endpoints = makeApi([
 		path: "/api/v1/feeds",
 		alias: "getFeeds",
 		requestFormat: "json",
-		response: z.object({ data: z.record(z.array(Feed)) }),
+		response: FeedsResponse,
 		errors: [
 			{
 				status: 401,

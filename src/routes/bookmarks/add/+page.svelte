@@ -133,7 +133,7 @@
 				<div class="font-bold text-4xl">Add Bookmark</div>
 				<div class="grid grid-flow-row gap-4">
 					<div class="flex flex-col gap-2">
-						<label class="block mb-2 text-md font-medium text-gray-900">
+						<label class="block mb-2 font-medium text-gray-900">
 							Url
 							<input
 								type="text"
@@ -151,7 +151,7 @@
 							<ErrorMessage message={$errors.url} />
 						</label>
 
-						<label class="block mb-2 text-md font-medium text-gray-900">
+						<label class="block mb-2 font-medium text-gray-900">
 							Tags
 							<input
 								type="text"
@@ -240,7 +240,7 @@
 							<ErrorMessage message={$errors.tag_ids} />
 						</label>
 
-						<div class="mb-2 text-md font-medium text-gray-900">
+						<div class="mb-2 font-medium text-gray-900">
 							<div class="flex items-center">
 								Incognito Mode
 								<label class="relative inline-flex items-center cursor-pointer ml-2">

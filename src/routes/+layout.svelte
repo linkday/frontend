@@ -42,7 +42,7 @@
 							<li>
 								<a
 									class="duration-200 font-bold text-sm text-gray-500 hover:text-main"
-									href="/bookmarks">FEEDS</a
+									href="/feeds">FEEDS</a
 								>
 							</li>
 							<li>
