@@ -29,6 +29,7 @@ export const handle = (async ({ event, resolve }) => {
 			console.log("error", error);
 
 			event.cookies.set("LINKDAY", "", {
+				domain: ".linkday.ez4o.com",
 				maxAge: -1,
 			});
 		}

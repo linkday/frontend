@@ -13,7 +13,8 @@ export const load = async ({ cookies }) => {
 			},
 		})
 		.then(() => {
-			cookies.set("LINKDAY", "");
-			throw redirect(303, "/");
+			cookies.set("LINKDAY", "", {
+				domain: ".linkday.ez4o.com",
+			});
 		});
 };
