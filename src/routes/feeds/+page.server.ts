@@ -1,6 +1,7 @@
 import { redirect } from "@sveltejs/kit";
 import { api } from "../../api";
-import type { FeedsResponse } from "../../api/api.gen";
+import { schemas, type FeedsResponse } from "../../api/api.gen";
+import { ZodiosError } from "@zodios/core";
 
 export const load = async ({ cookies }) => {
 	if (!cookies.get("LINKDAY")) {
@@ -18,6 +19,16 @@ export const load = async ({ cookies }) => {
 			},
 		});
 	} catch (err) {
+		if (err instanceof ZodiosError) {
+			feeds = err.data as FeedsResponse;
+
+			if (feeds.data === null) {
+				feeds.data = [];
+			}
+
+			feeds.data = feeds.data.filter((feed) => schemas.Feed.safeParse(feed).success);
+		}
+
 		console.log(err);
 	}
 

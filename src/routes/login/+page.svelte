@@ -1,19 +1,12 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-	import { browser } from "$app/environment";
 	import { env } from "$env/dynamic/public";
-	export let data;
 
-	if (browser && data.ok) {
-		fetch(
-			env.PUBLIC_API_PREFIX +
-				"/api/v1/auth" +
-				(env.PUBLIC_ENV === "development" ? "/test-callback" : "/callback"),
-			{
-				method: "GET",
-				credentials: "include",
-			},
-		)
+	if (env.PUBLIC_ENV === "development") {
+		fetch(env.PUBLIC_API_PREFIX + "/api/v1/auth/test-callback", {
+			method: "GET",
+			credentials: "include",
+		})
 			.then((res) => {
 				if (res.ok) {
 					goto("/bookmarks", {
@@ -24,5 +17,7 @@
 			.catch((err) => {
 				console.error(err);
 			});
+	} else {
+		goto(env.PUBLIC_API_PREFIX + "/api/v1/auth/login");
 	}
 </script>

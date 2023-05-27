@@ -29,6 +29,10 @@ export const load = async ({ locals, cookies }) => {
 			);
 		}
 
+		if (bookmarks.data === null) {
+			bookmarks.data = [];
+		}
+
 		console.log(err);
 	}
 
