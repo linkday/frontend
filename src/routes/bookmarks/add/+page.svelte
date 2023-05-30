@@ -5,8 +5,13 @@
 	import { api } from "../../../api";
 	import { goto } from "$app/navigation";
 	import { tick } from "svelte";
+	import { createDialog } from "svelte-headlessui";
+	import Transition from "svelte-transition";
 
 	export let data;
+
+	const errorPanel = createDialog({ label: "error-panel" });
+	let errorMessage = "";
 
 	const { form, errors, constraints } = superForm(data.form);
 
@@ -52,6 +57,8 @@
 			}
 		} catch (err) {
 			console.error(err);
+			errorMessage = "Something went wrong. Please try again later.";
+			errorPanel.open();
 		}
 	}
 
@@ -118,6 +125,70 @@
 </svelte:head>
 
 <svelte:window on:click={handleClickEvent} />
+
+<div class="relative z-50">
+	<Transition show={$errorPanel.expanded}>
+		<Transition
+			enter="ease-out duration-300"
+			enterFrom="opacity-0"
+			enterTo="opacity-100"
+			leave="ease-in duration-200"
+			leaveFrom="opacity-100"
+			leaveTo="opacity-0"
+		>
+			<button class="fixed inset-0 bg-black bg-opacity-25" on:click={errorPanel.close} />
+		</Transition>
+
+		<div class="fixed inset-0 overflow-y-auto">
+			<div class="flex min-h-full items-center justify-center p-4 text-center">
+				<Transition
+					enter="ease-out duration-300"
+					enterFrom="opacity-0 scale-95"
+					enterTo="opacity-100 scale-100"
+					leave="ease-in duration-200"
+					leaveFrom="opacity-100 scale-100"
+					leaveTo="opacity-0 scale-95"
+				>
+					<div
+						class="w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all flex flex-col gap-6"
+						use:errorPanel.modal
+					>
+						<div class="flex flex-row justify-between">
+							<h3 class="text-lg font-bold">Error</h3>
+							<button
+								class="focus:outline-none w-5 h-5"
+								id="close-filter-panel"
+								on:click={errorPanel.close}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-3 w-3 ml-1 inline-block"
+									viewBox="0 0 20 20"
+									fill="#333"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M3.293 3.293a1 1 0 011.414 0L10 8.586l5.293-5.293a1 1 0 111.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									/>
+								</svg></button
+							>
+						</div>
+						{errorMessage}
+						<div class="w-full flex justify-end my-1">
+							<button
+								class="bg-main hover:bg-hover text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline"
+								on:click={errorPanel.close}
+							>
+								OK
+							</button>
+						</div>
+					</div>
+				</Transition>
+			</div>
+		</div>
+	</Transition>
+</div>
 
 <div class="w-full flex justify-center">
 	<div class="mx-8 md:mt-8 mt-2 max-w-screen-2xl flex flex-col gap-12 w-full">
@@ -284,6 +355,8 @@
 									})
 									.catch((err) => {
 										console.log(err);
+										errorMessage = "Something went wrong. Please try again later.";
+										errorPanel.open();
 									})
 									.finally(() => {
 										isSubmitting = false;
