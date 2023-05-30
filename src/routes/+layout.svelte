@@ -116,9 +116,8 @@
 						>
 					</li>
 					<li>
-						<a
-							class="duration-200 font-bold text-sm text-gray-500 hover:text-main"
-							href="/bookmarks">FEEDS</a
+						<a class="duration-200 font-bold text-sm text-gray-500 hover:text-main" href="/feeds"
+							>FEEDS</a
 						>
 					</li>
 					<li>

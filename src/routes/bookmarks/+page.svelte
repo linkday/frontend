@@ -152,11 +152,28 @@
 				>
 			</button>
 		</div>
-		<div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-8 gap-4">
-			{#each filteredBookmarks as bookmark (bookmark.id)}
-				<Bookmark {bookmark} />
-			{/each}
-		</div>
+		{#if data.bookmarks.data.length === 0}
+			<div
+				class="fixed w-screen h-screen top-0 left-0 flex flex-col items-center justify-center text-gray-400 p-4 text-center"
+			>
+				<span>
+					No bookmarks yet...
+					<a href="/bookmarks/add" class="ml-1 underline">Add one?</a>
+				</span>
+			</div>
+		{:else if filteredBookmarks.length === 0}
+			<div
+				class="fixed w-screen h-screen top-0 left-0 flex flex-col items-center justify-center text-gray-400 p-4 text-center"
+			>
+				No bookmarks found.
+			</div>
+		{:else}
+			<div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-8 gap-4">
+				{#each filteredBookmarks as bookmark (bookmark.id)}
+					<Bookmark {bookmark} />
+				{/each}
+			</div>
+		{/if}
 	</div>
 </div>
 
