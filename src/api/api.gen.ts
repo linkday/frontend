@@ -65,6 +65,7 @@ const Feed = z.object({
 	thumbnail_url: z.string().url().optional(),
 	similarity: z.number(),
 	recommendation: z.number(),
+	created_at: z.string().datetime(),
 });
 const FeedsResponse = z.object({ data: z.array(Feed) });
 

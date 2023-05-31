@@ -4,6 +4,11 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>Linkday - Feeds</title>
+	<meta name="description" content="The personal bookmark page of linkday app." />
+</svelte:head>
+
 <div class="w-full flex justify-center">
 	<div class="mx-8 md:mt-8 mt-2 max-w-screen-2xl flex flex-col gap-12 w-full">
 		{#if data.feeds.data.length === 0}

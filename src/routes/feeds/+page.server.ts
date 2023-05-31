@@ -32,5 +32,16 @@ export const load = async ({ cookies }) => {
 		console.log(err);
 	}
 
+	// result is unstable sort
+	// alphabetical sort to make it stable
+	feeds.data = feeds.data.sort((a, b) => {
+		return a.title.localeCompare(b.title);
+	});
+
+	// then sort by date
+	feeds.data = feeds.data.sort((a, b) => {
+		return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+	});
+
 	return { feeds };
 };
