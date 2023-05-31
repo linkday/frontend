@@ -242,11 +242,22 @@
 									<div
 										class="bg-white border border-gray-300 rounded-lg shadow-md p-2 flex flex-col"
 									>
+										{#each filteredTags as tag, index (index)}
+											<button
+												class="flex flex-col gap-1 p-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md disabled:opacity-50 disabled:cursor-not-allowed overflow-y-hidden"
+												on:click={() => addTag(tag)}
+												disabled={selectedTagNames.includes(tag.name)}
+												bind:this={tagButtons[index]}
+											>
+												<div class="text-sm font-medium text-left">{tag.name}</div>
+												<div class="text-xs text-gray-400">Click to add</div>
+											</button>
+										{/each}
 										{#if !filteredTags.map((tag) => tag.name).includes(tagSerachString)}
 											<button
 												class="flex flex-col gap-1 p-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md overflow-y-hidden"
 												on:click={createTag}
-												bind:this={tagButtons[0]}
+												bind:this={tagButtons[filteredTags.length]}
 											>
 												<div class="text-sm font-medium">
 													{#if filteredTags.length > 0}
@@ -263,17 +274,6 @@
 												</div>
 											</button>
 										{/if}
-										{#each filteredTags as tag, index (index)}
-											<button
-												class="flex flex-col gap-1 p-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md disabled:opacity-50 disabled:cursor-not-allowed overflow-y-hidden"
-												on:click={() => addTag(tag)}
-												disabled={selectedTagNames.includes(tag.name)}
-												bind:this={tagButtons[index + 1]}
-											>
-												<div class="text-sm font-medium text-left">{tag.name}</div>
-												<div class="text-xs text-gray-400">Click to add</div>
-											</button>
-										{/each}
 									</div>
 								</div>
 							{/if}
